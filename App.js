@@ -13,6 +13,11 @@
  import Terms from './src/screens/auth/terms';
  import Privacy from './src/screens/auth/privacy';
  import MainTabs from './src/screens/user/maintabuser';
+ import OfferTabs from './src/screens/user/offerTabs';
+ import EventList from './src/screens/user/eventlist';
+ import EventPage from './src/screens/user/eventpage';
+ import DineIn from './src/screens/user/dinein';
+
 
  const RootStack = createStackNavigator();
  
@@ -34,6 +39,10 @@
          <RootStack.Screen name="Terms" component={Terms} />
          <RootStack.Screen name="Privacy" component={Privacy} />
          <RootStack.Screen name="MainTabs" component={MainTabs} />
+         <RootStack.Screen name="OfferTabs" component={OfferTabs} />
+         <RootStack.Screen name="EventList" component={EventList} />
+         <RootStack.Screen name="EventPage" component={EventPage} />
+         <RootStack.Screen name="DineIn" component={DineIn} />
 
 
        </RootStack.Navigator>

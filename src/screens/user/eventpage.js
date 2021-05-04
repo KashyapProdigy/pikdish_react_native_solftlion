@@ -93,8 +93,9 @@ export default class Splash extends React.Component {
       };
 
       this.onBackClick = this.onBackClick.bind(this);
-      this.onCallWaiterClick = this.onCallWaiterClick.bind(this);
-      this.onBillDetailClick = this.onBillDetailClick.bind(this);
+      this.onPlusClick = this.onPlusClick.bind(this);
+      this.onMinusClick = this.onMinusClick.bind(this);
+      this.onBookSeatClick = this.onBookSeatClick.bind(this);
 
     }
 
@@ -104,11 +105,15 @@ export default class Splash extends React.Component {
         this.props.navigation.goBack();
     }
 
-    onCallWaiterClick(){
+    onPlusClick(){
 
     }
 
-    onBillDetailClick(){
+    onMinusClick(){
+
+    }
+
+    onBookSeatClick(){
 
     }
 
@@ -125,69 +130,64 @@ export default class Splash extends React.Component {
             <TouchableOpacity onPress={this.onBackClick}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
             </TouchableOpacity>
-            <View>
-            <Text style={styles.subcontainertextheader}>{'Running Orders'}</Text>
-            </View>
-            <View></View>
+            <Text style={{fontSize:fonts.pageheader,color:colors.black,marginLeft:wp('3%')}} numberOfLines={1}>Event Name</Text>
         </View>
         </View>
 
         <View style={styles.subcontainer2}>
-        <FlatList
-          numColumns={1}
-          showsVerticalScrollIndicator={false}
-          style={styles.subcontainer2flatlist}
-          contentContainerStyle={{ paddingBottom: hp('10%')}}
-          data={this.state.renderTerms}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) =>                     
-                  <View style={{marginTop:hp('2%'),alignSelf:"center",width:wp('96%') ,}}>
-                      <View style={{alignItems:"center",justifyContent:"space-between",flexDirection:"row",paddingHorizontal:wp('3%'),paddingVertical:hp('1%'),borderBottomWidth:hp('0.1%'),borderBottomColor:colors.gray}}>
-                          <View style={{flexDirection:"row",alignItems:"center",}}>
-                          <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginRight:wp('2%')}} resizeMode='contain' />
-                          <View>
-                              <Text style={{fontSize:fonts.normalheader,color:colors.black}} numberOfLines={1}>{item.name}</Text>
-                              <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{item.timer}</Text>
-                          </View>
-                          </View>
-                          <View style={{}}>
-                          <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{item.total_price}</Text>
-                          </View>
-                      </View>
-                      {item.fooditems.map((fooditem) => (
-                                        <View style={{alignItems:"center",justifyContent:"space-between",flexDirection:"row",paddingHorizontal:wp('3%'),paddingVertical:hp('1%')}}>
-                                                  <View style={{flexDirection:"row",alignItems:"center",}}>
-                                                  <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginRight:wp('2%')}} resizeMode='contain' />
-                                                  <View>
-                                                      <Text style={{fontSize:fonts.normalheader,color:colors.black}} numberOfLines={1}>{fooditem.name+' x '+fooditem.qty}</Text>
-                                                      <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{fooditem.plate}</Text>
-                                                  </View>
-                                                  </View>
-                                                  <View style={{}}>
-                                                  <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{fooditem.price}</Text>
-                                                  </View>
-                                        </View>
-                        ))}
-                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",alignSelf:"center"}}>
-                            <TouchableOpacity onPress={()=>{
-                                this.onCallWaiterClick();
-                            }}  style={styles.loginButtonContainer}>
-                                <Text style={styles.loginButtonText}>Call Waiter</Text>
-                            </TouchableOpacity>
 
-                            <TouchableOpacity onPress={()=>{
-                                this.onBillDetailClick();
-                            }}  style={styles.loginButtonContainer}>
-                                <Text style={styles.loginButtonText}>Bill Detail</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:hp('0.1%'),width:wp('76%'),alignSelf:"center", marginTop:hp('3%'),borderColor:colors.gray,borderStyle: 'dashed',borderWidth:hp('0.10%'),borderRadius: 1,}}>
+        <View style={{height:hp('24%'),width:wp('100%'),justifyContent:"center",alignItems:"center"}}>
+            <Image source={require('../../assets/image/event_list.png')} style={{height:hp('20%'),width:wp('90%'),borderRadius:hp('2%')}} resizeMode='cover' />
+        </View>
 
+        <View style={{height:hp('44%'),width:wp('100%'),paddingHorizontal:wp('7%'),paddingVertical:hp('2%'),backgroundColor:colors.white}}>
+            <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Ticket Price : $2000</Text>
                         </View>
-                  </View>
-                  
-              }
-        />
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Seats No : 1235485211</Text>
+                        </View>
+            </View>
+            <View style={{flexDirection:"row",marginTop:hp('1.5%'),alignItems:"center"}}>
+                <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Date & Time : </Text>
+                <View style={{flexDirection:"row",paddingVertical:hp('0.5%'),paddingHorizontal:hp('1%'),backgroundColor:colors.gray,borderRadius:hp('2%'),marginLeft:wp('1%'),justifyContent:"center",alignItems:"center"}}>
+                <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>27/10/2019 9:30AM</Text>
+                <Image source={require('../../assets/icon/event_timer.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginLeft:wp('1%')}} resizeMode='contain' />
+                </View>
+            </View>
+
+            <View style={{marginTop:hp('1.5%')}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Cafe Name : </Text>
+            </View>
+            
+            <View style={{marginTop:hp('1.5%')}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Description : </Text>
+            </View>
+
+            <View style={{marginTop:hp('3%'),borderBottomWidth:hp('0.1%'),borderBottomColor:colors.gray}}></View>
+
+            <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginTop:hp('3%')}}>
+                        <View style={{flexDirection:"row",alignItems:"center",}}>
+                        <Text style={{fontSize:fonts.normal,color:colors.primary}} numberOfLines={1}>Tickets:</Text>
+                        <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",width:wp('15%'),height:hp('3%'), borderWidth:hp('0.1%'),marginLeft:wp('2%'),paddingHorizontal:wp('2%')}}>
+                        <TouchableOpacity onPress={()=>{this.onPlusClick()}}><Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>-</Text></TouchableOpacity>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>2</Text>
+                        <TouchableOpacity onPress={()=>{this.onMinusClick()}}><Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>+</Text></TouchableOpacity>
+                        </View>
+                        </View>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.normal,color:colors.primary}} numberOfLines={1}>Amount: $200</Text>
+                        </View>
+            </View>
+
+
+            <TouchableOpacity onPress={()=>{
+                this.onBookSeatClick();
+            }}  style={styles.loginButtonContainer}>
+                <Text style={styles.loginButtonText}>Book Your Seats</Text>
+            </TouchableOpacity>
+        </View>
         </View>
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        {/* <AppLoader isAppLoading={this.state.appLoading}/> */}
@@ -224,7 +224,6 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         flexDirection:"row",
         alignItems:"center",
-        justifyContent:"space-between"
     },
     subcontainertextheader:{
         fontSize:fonts.normalheader,
@@ -242,7 +241,7 @@ const styles = StyleSheet.create({
     },
     subcontainer2flatlist:{
         height:hp('93%'),
-        width:wp('94%'),
+        width:wp('100%'),
         alignSelf:"center",
     },
     backgroundImage: {
@@ -312,14 +311,14 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         backgroundColor:colors.primary,
         marginHorizontal:wp('5%'),
-        height:hp('5%'),
-        width:wp('25%'),
+        height:hp('6%'),
+        width:wp('70%'),
         borderRadius:hp('1%'),
-        marginTop:hp('2%'),
+        marginTop:hp('7%'),
     },
     loginButtonText:{
         color:colors.white,
-        fontSize:font.subnormal
+        fontSize:font.normal
     },
     socialButtonContainer:{
         flexDirection:'row',

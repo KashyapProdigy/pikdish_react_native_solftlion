@@ -93,8 +93,7 @@ export default class Splash extends React.Component {
       };
 
       this.onBackClick = this.onBackClick.bind(this);
-      this.onCallWaiterClick = this.onCallWaiterClick.bind(this);
-      this.onBillDetailClick = this.onBillDetailClick.bind(this);
+      this.onEventClick = this.onEventClick.bind(this);
 
     }
 
@@ -104,12 +103,8 @@ export default class Splash extends React.Component {
         this.props.navigation.goBack();
     }
 
-    onCallWaiterClick(){
-
-    }
-
-    onBillDetailClick(){
-
+    onEventClick(){
+        this.props.navigation.navigate('EventPage');
     }
 
 
@@ -125,10 +120,6 @@ export default class Splash extends React.Component {
             <TouchableOpacity onPress={this.onBackClick}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
             </TouchableOpacity>
-            <View>
-            <Text style={styles.subcontainertextheader}>{'Running Orders'}</Text>
-            </View>
-            <View></View>
         </View>
         </View>
 
@@ -141,50 +132,31 @@ export default class Splash extends React.Component {
           data={this.state.renderTerms}
           keyExtractor={item => item.id}
           renderItem={({ item }) =>                     
-                  <View style={{marginTop:hp('2%'),alignSelf:"center",width:wp('96%') ,}}>
-                      <View style={{alignItems:"center",justifyContent:"space-between",flexDirection:"row",paddingHorizontal:wp('3%'),paddingVertical:hp('1%'),borderBottomWidth:hp('0.1%'),borderBottomColor:colors.gray}}>
-                          <View style={{flexDirection:"row",alignItems:"center",}}>
-                          <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginRight:wp('2%')}} resizeMode='contain' />
-                          <View>
-                              <Text style={{fontSize:fonts.normalheader,color:colors.black}} numberOfLines={1}>{item.name}</Text>
-                              <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{item.timer}</Text>
-                          </View>
-                          </View>
-                          <View style={{}}>
-                          <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{item.total_price}</Text>
-                          </View>
-                      </View>
-                      {item.fooditems.map((fooditem) => (
-                                        <View style={{alignItems:"center",justifyContent:"space-between",flexDirection:"row",paddingHorizontal:wp('3%'),paddingVertical:hp('1%')}}>
-                                                  <View style={{flexDirection:"row",alignItems:"center",}}>
-                                                  <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginRight:wp('2%')}} resizeMode='contain' />
-                                                  <View>
-                                                      <Text style={{fontSize:fonts.normalheader,color:colors.black}} numberOfLines={1}>{fooditem.name+' x '+fooditem.qty}</Text>
-                                                      <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{fooditem.plate}</Text>
-                                                  </View>
-                                                  </View>
-                                                  <View style={{}}>
-                                                  <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{fooditem.price}</Text>
-                                                  </View>
-                                        </View>
-                        ))}
-                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",alignSelf:"center"}}>
-                            <TouchableOpacity onPress={()=>{
-                                this.onCallWaiterClick();
-                            }}  style={styles.loginButtonContainer}>
-                                <Text style={styles.loginButtonText}>Call Waiter</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={()=>{
-                                this.onBillDetailClick();
-                            }}  style={styles.loginButtonContainer}>
-                                <Text style={styles.loginButtonText}>Bill Detail</Text>
-                            </TouchableOpacity>
+                  <TouchableOpacity onPress={this.onEventClick} style={{marginTop:hp('2%'),alignSelf:"center",width:wp('100%'),paddingHorizontal:wp('6%'),paddingVertical:hp('2%'), backgroundColor:colors.white }}>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Name : </Text>
                         </View>
-                        <View style={{height:hp('0.1%'),width:wp('76%'),alignSelf:"center", marginTop:hp('3%'),borderColor:colors.gray,borderStyle: 'dashed',borderWidth:hp('0.10%'),borderRadius: 1,}}>
 
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Cafe Name : </Text>
                         </View>
-                  </View>
+
+                        <View style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row"}}>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Ticket price : </Text>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Date & Time : </Text>
+                        <View style={{flexDirection:"row",paddingVertical:hp('0.5%'),paddingHorizontal:hp('1%'),backgroundColor:colors.gray,borderRadius:hp('2%'),marginLeft:wp('1%'),justifyContent:"center",alignItems:"center"}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>27/10/2019 9:30AM</Text>
+                        <Image source={require('../../assets/icon/event_timer.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginLeft:wp('1%')}} resizeMode='contain' />
+                        </View>
+                        </View>
+                        </View>
+                        <View style={{}}>
+                        <Image source={require('../../assets/image/event_list.png')} style={{height:hp('20%'),width:wp('88%'),borderRadius:hp('2%'),marginTop:hp('2%')}} resizeMode='cover' />
+                        </View>
+                  </TouchableOpacity>
                   
               }
         />
@@ -242,7 +214,7 @@ const styles = StyleSheet.create({
     },
     subcontainer2flatlist:{
         height:hp('93%'),
-        width:wp('94%'),
+        width:wp('100%'),
         alignSelf:"center",
     },
     backgroundImage: {

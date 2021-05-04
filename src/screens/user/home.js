@@ -33,7 +33,7 @@ export default class Splash extends React.Component {
             },
             {
                 id:2,
-                title:"Pro-Order/Table Booking",
+                title:"Pre-Order/Table Booking",
                 image:require('../../assets/image/home_cat2.png'),            
             },
             {
@@ -52,61 +52,53 @@ export default class Splash extends React.Component {
                 image:require('../../assets/image/home_cat5.png'),            
             },
           ],
-          togglePasswordVisibility:true,
           appLoading:false,
       };
 
-      this.onResendOtpClick = this.onResendOtpClick.bind(this);
-      this.onSubmitClick = this.onSubmitClick.bind(this);
-      this.onSuccess = this.onSuccess.bind(this);
       this.onBackClick = this.onBackClick.bind(this);
+      this.onOfferClick = this.onOfferClick.bind(this);
+      this.onLocationClick = this.onLocationClick.bind(this);
+      this.onTableOrderClick = this.onTableOrderClick.bind(this);
+      this.onPreOrderClick = this.onPreOrderClick.bind(this);
+      this.onTakeAwayClick = this.onTakeAwayClick.bind(this);
+      this.onDeliveryClick = this.onDeliveryClick.bind(this);
+      this.onEventClick = this.onEventClick.bind(this);
 
     }
 
     componentDidMount(){}
 
-    onResendOtpClick(){
+    onLocationClick(){
 
     }
+
     onBackClick(){
-        this.props.navigation.replace('Login');
+        this.props.navigation.goBack();
     }
 
-    async onSubmitClick(code){
-
-        this.setState({appLoading:true,otpCode:code})
-
-        console.log('State =',this.state.otpCode);
-        console.log('param =',code);
-        if(code == "111111" ){
-          this.setState({appLoading:false})
-          this.dropDownAlertRef.alertWithType('success', 'Number Verified !', "",null,1500)
-
-          setTimeout( () => {
-            this.onSuccess();
-          },2000);
-
-        }else{
-          this.setState({otpCode:'',appLoading:false})
-          this.dropDownAlertRef.alertWithType('error', 'Otp Invalid !', "try again",null,1500)  
-        }
+    onTableOrderClick(){
+        this.props.navigation.navigate('DineIn');
     }
 
+    onPreOrderClick(){
 
-    onSuccess(){
-      this.props.navigation.popToTop();
-      this.props.navigation.replace('Login');
     }
 
-    isEmptyString(code){
-      if(code=== ''){
-        return true
-      }else{
-        return false
-      }
+    onTakeAwayClick(){
+
     }
 
+    onDeliveryClick(){
 
+    }
+
+    onEventClick(){
+        this.props.navigation.navigate('EventList');
+    }
+
+    onOfferClick(){
+        this.props.navigation.navigate('OfferTabs');
+    }
 
     render () {
       return (
@@ -116,13 +108,14 @@ export default class Splash extends React.Component {
            barStyle = "dark-content"
          />
        <View style={styles.subcontainer1}>
-       <View style={{flexDirection:"row",alignItems:"center",}}>
+       <TouchableOpacity  onPress={this.onLocationClick} style={{flexDirection:"row",alignItems:"center",}}>
            <Text style={{color:colors.black,fontSize:font.normal}}>Location</Text>
            <Image source={require('../../assets/icon/drop_down_black.png')} style={styles.socialButtonImage} resizeMode='contain'></Image>
-       </View>
-       <View style={{flexDirection:"row",alignItems:"center",}}>
+       </TouchableOpacity>
+       <TouchableOpacity onPress={this.onOfferClick} style={{flexDirection:"row",alignItems:"center",}}>
            <Image source={require('../../assets/icon/discount_primary.png')} style={styles.OfferButtonImage} resizeMode='contain'></Image>
-           <Text style={{color:colors.black,fontSize:font.normal}}>Offer</Text></View>
+           <Text style={{color:colors.black,fontSize:font.normal}}>Offer</Text>
+        </TouchableOpacity>
        </View>
        <View style={styles.subcontainer2}>
        <FlatList
@@ -133,14 +126,26 @@ export default class Splash extends React.Component {
                     data={this.state.renderTerms}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) =>                     
-                            <View style={{marginTop:hp('5%'),marginHorizontal:wp('4%'),height:hp('22%'),width:wp('40%')}}>
+                            <TouchableOpacity onPress={()=>{
+                                if(item.id == 1)
+                                this.onTableOrderClick()
+                                if(item.id == 2)
+                                this.onPreOrderClick()
+                                if(item.id == 3)
+                                this.onTakeAwayClick()                               
+                                if(item.id == 4)
+                                this.onDeliveryClick()
+                                if(item.id == 5)
+                                this.onEventClick()
+                            }} 
+                            style={{marginTop:hp('5%'),marginHorizontal:wp('4%'),height:hp('22%'),width:wp('40%')}}>
                                 <View style={{alignItems:"center",height:hp('17%'),width:wp('40%')}}>
                                      <Image source={item.image} style={styles.CategoryImage} resizeMode='cover'></Image>
                                 </View>
                                 <View style={{alignItems:"center",height:hp('5.1%'),width:wp('40%'),alignSelf:"center",justifyContent:"center",textAlign:"center",backgroundColor:colors.primary}}>
                                     <Text style={{color:colors.white,fontSize:font.subnormal,padding:hp('1%')}} numberOfLines={1}>{item.title}</Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                             
                         }
                 />

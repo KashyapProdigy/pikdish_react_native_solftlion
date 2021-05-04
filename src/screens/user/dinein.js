@@ -9,46 +9,45 @@ import {
     Dimensions, 
     TouchableOpacity,
     StatusBar,
-    Keyboard
+    FlatList,
+    Keyboard,
+    Linking
   } from 'react-native';
 
-import Modal from 'react-native-modal';
-
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
 // import AppLoader from '../component/loader';
 import DropdownAlert from 'react-native-dropdownalert';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-          searchstring:'',
-          ApplyCodeModalVisible:true,
           appLoading:false,
       };
-
 
       this.onBackClick = this.onBackClick.bind(this);
 
     }
 
-    componentDidMount(){
-        var that = this;
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            that.searchstringInputRef.focus();
-          });
-    }
-    componentWillUnmount() {
-        this._unsubscribe();
-    }
+    componentDidMount(){}
 
     onBackClick(){
         this.props.navigation.goBack();
     }
+
+    onSuccess = e => {
+        // Linking.openURL(e.data).catch(err =>
+        //   console.error('An error occured', err)
+        // );
+        console.log('QR code scanned!', e)
+      };
+
+
 
 
     render () {
@@ -58,26 +57,28 @@ export default class Splash extends React.Component {
            backgroundColor="white"
            barStyle = "dark-content"
          />
-
-        <View style={styles.modalmain}>
-            <TouchableOpacity onPress={this.onBackClick} style={styles.modalsub1}>
+        <View style={styles.subcontainer1}>
+        <View style={styles.subcontainertextcontainer}>
+            <TouchableOpacity onPress={this.onBackClick}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
             </TouchableOpacity>
-            <View style={styles.searchstringInputContainer}>
-            <TextInput style = {styles.searchstringInputField}
-                    ref={(input) => { this.searchstringInputRef = input }}
-                    // returnKeyType="next"
-                    // onSubmitEditing={() => { Keyboard.dismiss() }}
-                    // blurOnSubmit={false}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Search for restaurant & dishes..."
-                    placeholderTextColor={colors.gray}
-                    autoCapitalize = "none"
-                    value={this.state.searchstring}
-                    onChangeText={(searchstring) => this.setState({searchstring})}  />
-            </View>
+        </View>
         </View>
 
+        <View style={styles.subcontainer2}>
+
+        <View style={{height:hp('35%'),width:wp('100%'),justifyContent:"center",alignItems:"center"}}>
+            <Image source={require('../../assets/image/event_list.png')} style={{height:hp('35%'),width:wp('100%')}} resizeMode='cover' />
+        </View>
+
+        <View style={{height:hp('58%'),width:wp('100%'),justifyContent:"center",alignItems:"center",backgroundColor:colors.dark_gray}}>
+        <QRCodeScanner
+        onRead={this.onSuccess}
+        cameraStyle={{height:hp('50%'),width:wp('80%'),alignSelf:"center"}}
+        />
+        </View>
+
+        </View>
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        {/* <AppLoader isAppLoading={this.state.appLoading}/> */}
        </View>
@@ -90,10 +91,10 @@ const styles = StyleSheet.create({
     maincontainer:{
         height:hp('100%'),
         width:wp('100%'),
-        backgroundColor:colors.off_white
+        backgroundColor:colors.white
     },
     subcontainer1:{
-        height:hp('10%'),
+        height:hp('7%'),
     },
     subcontainerimagecontainer:{
         height:hp('15%'),
@@ -102,27 +103,21 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
     },
-    modalmain:{height:hp('8%'),width:wp('100%'),flexDirection:"row",backgroundColor:colors.white},
-    modalsub1:{height:hp('8%'),alignItems:"center",justifyContent:"center",width:wp('10%')},
-
-
     subcontainerimage:{
         height:hp('15%'),
         width:wp('70%'),
         alignSelf:"center"
     },
     subcontainertextcontainer:{
-        height:hp('10%'),
-        width:wp('96%'),
+        height:hp('7%'),
+        width:wp('90%'),
         alignSelf:"center",
-        justifyContent:"center"
+        flexDirection:"row",
+        alignItems:"center",
     },
     subcontainertextheader:{
-        fontSize:fonts.navigationheader,
-        color:colors.black,
-    },
-    applycodeheader:{
         fontSize:fonts.normalheader,
+        fontWeight:"bold",
         color:colors.black,
     },
     subcontainertextsubheader:{
@@ -130,22 +125,34 @@ const styles = StyleSheet.create({
         color:colors.gray,
     },
     subcontainer2:{
-        height:hp('90%'),
-        width:wp('86%'),
+        height:hp('93%'),
+        width:wp('100%'),
+        backgroundColor:colors.off_white
+    },
+    subcontainer2flatlist:{
+        height:hp('93%'),
+        width:wp('100%'),
         alignSelf:"center",
-        alignItems:'center',
     },
     backgroundImage: {
         height:hp('100%'),
         width:wp('100%')
     },
     pageheader:{
-        fontSize:hp('4%'),
-        color:'#4F45F0'
+        marginTop:hp('10%'),
+        marginLeft:wp('10%'),
+        fontSize:fonts.navigationheader,
+        color:colors.black,
+    },
+    pagesubheader:{
+        marginTop:hp('1%'),
+        marginLeft:wp('10%'),
+        fontSize:fonts.normal,
+        color:colors.gray,
     },
     forgotPasswordText:{
         fontSize:font.normal,
-        color:colors.black
+        color:colors.primary
     },
     navigatorText:{
         fontSize:font.normal,
@@ -153,13 +160,8 @@ const styles = StyleSheet.create({
     },
     forgotPasswordContainer:{
         flexDirection:"row",
-        marginTop:hp('2%'),
-        width:wp('86%'),
+        width:wp('90%'),
         justifyContent:"space-between"
-    },
-    pagesubheader:{
-        marginTop:hp('2%'),
-        fontSize:hp('2.5%')
     },
     inputheader:{
         marginTop:hp("3%"),
@@ -183,19 +185,6 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         height:hp('5%'),
     },
-    searchstringInputContainer:{
-        flexDirection:'row',
-        backgroundColor:colors.white,
-        alignSelf:"center",
-        height:hp('7%'),
-        width:wp('85%'),
-    },
-    searchstringInputField:{
-        flex:1,
-        fontSize:font.normal,
-        color:colors.black,
-        justifyContent:"center"
-    },
     iconInputField:{
         flex:1,
         fontSize:font.normal,
@@ -211,25 +200,13 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignSelf:"center",
         backgroundColor:colors.primary,
-        height:hp('7%'),
-        width:wp('40%'),
+        marginHorizontal:wp('5%'),
+        height:hp('6%'),
+        width:wp('70%'),
         borderRadius:hp('1%'),
-        marginTop:hp('5%'),
+        marginTop:hp('7%'),
     },
     loginButtonText:{
-        color:colors.white,
-        fontSize:font.normal
-    },
-    searchstringButtonContainer:{
-        alignItems:'center',
-        justifyContent:"center",
-        alignSelf:"center",
-        backgroundColor:colors.primary,
-        height:hp('7%'),
-        width:wp('80%'),
-        borderRadius:hp('1%'),
-    },
-    searchstringButtonText:{
         color:colors.white,
         fontSize:font.normal
     },
