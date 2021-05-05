@@ -27,7 +27,11 @@ export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-          appLoading:false,
+        scan: false,
+        ScanResult: false,
+        scanresultcode:0,
+        result: null,
+        appLoading:false,
       };
 
       this.onBackClick = this.onBackClick.bind(this);
@@ -40,12 +44,46 @@ export default class Splash extends React.Component {
         this.props.navigation.goBack();
     }
 
-    onSuccess = e => {
-        // Linking.openURL(e.data).catch(err =>
-        //   console.error('An error occured', err)
-        // );
-        console.log('QR code scanned!', e)
-      };
+   onSuccess = (e) => {
+        const check = e.data.substring(0, 4);
+        console.log('scanned data' + check);
+        this.setState({
+            result: e,
+            scan: false,
+            ScanResult: true,
+            scanresultcode:0,
+        })
+        if (check === 'http') {
+            // Linking
+            //     .openURL(e.data)
+            //     .catch(err => console.error('An error occured', err));
+                
+                this.setState({
+                    scanresultcode:1
+                })
+                this.props.navigation.replace('QRsuccess');
+        } else {
+            this.setState({
+                result: e,
+                scan: false,
+                ScanResult: true,
+                scanresultcode:2
+            })
+        }
+
+    }
+
+    activeQR = () => {
+        this.setState({
+            scan: true
+        })
+    }
+    scanAgain = () => {
+        this.setState({
+            scan: true,
+            ScanResult: false
+        })
+    }
 
 
 
@@ -68,14 +106,36 @@ export default class Splash extends React.Component {
         <View style={styles.subcontainer2}>
 
         <View style={{height:hp('35%'),width:wp('100%'),justifyContent:"center",alignItems:"center"}}>
-            <Image source={require('../../assets/image/event_list.png')} style={{height:hp('35%'),width:wp('100%')}} resizeMode='cover' />
+            <Image source={this.state.result != null  && this.state.scanresultcode == 2 ? require('../../assets/image/scanner_error.png') :require('../../assets/image/scanner.png')} style={{height:hp('35%'),width:wp('100%')}} resizeMode='cover' />
         </View>
 
         <View style={{height:hp('58%'),width:wp('100%'),justifyContent:"center",alignItems:"center",backgroundColor:colors.dark_gray}}>
         <QRCodeScanner
-        onRead={this.onSuccess}
-        cameraStyle={{height:hp('50%'),width:wp('80%'),alignSelf:"center"}}
-        />
+                            reactivate={true}
+                            showMarker={true}
+                            cameraTimeout={10000}
+                            ref={(node) => { this.scanner = node }}
+                            cameraStyle={{height:hp('40%'),width:wp('80%'),alignSelf:"center"}}
+                            onRead={this.onSuccess}
+                            cameraTimeoutView={
+                                <View  style={{height:hp('30%'),width:wp('80%'),alignSelf:"center",alignItems:"center",justifyContent:"center",backgroundColor:colors.white}}>
+                                    <View><Text style={{fontSize:fonts.normal2,color:colors.black}} numberOfLines={1}>Camera Timeouted</Text></View>
+                                    <View><Text style={{fontSize:fonts.subnormal,color:colors.black,marginTop:hp('1%')}} numberOfLines={1}>Tap to try again !</Text></View>
+                                </View>
+                            }
+                            bottomContent={
+                                this.state.result != null  && this.state.scanresultcode == 2 ?
+                                <View style={{height:hp('10%'),width:wp('100%'),alignSelf:"center",backgroundColor:colors.white,alignItems:"center",justifyContent:"center"}}>
+                                <Text style={{fontSize:fonts.normalheader,color:colors.primary}} numberOfLines={1}>Invalid QR-Code !!</Text>
+                                    <TouchableOpacity  onPress={() => this.scanner.reactivate()}>
+                                    <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>Explore Menu !!</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                : 
+                                <View></View>
+                            }
+                        />
+
         </View>
 
         </View>

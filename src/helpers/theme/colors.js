@@ -7,5 +7,6 @@ export default colors = {
     dark_gray:"#6A6A6A",
     gray: "#929292",
     lightpurple:"#E7E9F9",
+    yellow_font:"#FFC107"
     // your colors
   }

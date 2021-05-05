@@ -17,6 +17,8 @@
  import EventList from './src/screens/user/eventlist';
  import EventPage from './src/screens/user/eventpage';
  import DineIn from './src/screens/user/dinein';
+ import QRsuccess from './src/screens/user/qrsuccess';
+ import RestoFoodList from './src/screens/user/restaurantfoodlist';
 
 
  const RootStack = createStackNavigator();
@@ -43,7 +45,8 @@
          <RootStack.Screen name="EventList" component={EventList} />
          <RootStack.Screen name="EventPage" component={EventPage} />
          <RootStack.Screen name="DineIn" component={DineIn} />
-
+         <RootStack.Screen name="QRsuccess" component={QRsuccess} />
+         <RootStack.Screen name="RestoFoodList" component={RestoFoodList} />
 
        </RootStack.Navigator>
      </NavigationContainer>
