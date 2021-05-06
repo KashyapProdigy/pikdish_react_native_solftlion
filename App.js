@@ -19,6 +19,14 @@
  import DineIn from './src/screens/user/dinein';
  import QRsuccess from './src/screens/user/qrsuccess';
  import RestoFoodList from './src/screens/user/restaurantfoodlist';
+ import FoodCourtHome from './src/screens/user/foodcourthome';
+ import EditProfile from './src/screens/user/editprofile';
+ import OrderHistory from './src/screens/user/orderhistory';
+ import EventHistory from './src/screens/user/eventhistory';
+ import Feedback from './src/screens/user/feedback';
+ import ContactUs from './src/screens/user/contactus';
+
+
 
 
  const RootStack = createStackNavigator();
@@ -47,6 +55,14 @@
          <RootStack.Screen name="DineIn" component={DineIn} />
          <RootStack.Screen name="QRsuccess" component={QRsuccess} />
          <RootStack.Screen name="RestoFoodList" component={RestoFoodList} />
+         <RootStack.Screen name="FoodCourtHome" component={FoodCourtHome} />
+         <RootStack.Screen name="EditProfile" component={EditProfile} />
+         <RootStack.Screen name="OrderHistory" component={OrderHistory} />
+         <RootStack.Screen name="EventHistory" component={EventHistory} />
+         <RootStack.Screen name="Feedback" component={Feedback} />
+         <RootStack.Screen name="ContactUs" component={ContactUs} />
+
+
 
        </RootStack.Navigator>
      </NavigationContainer>

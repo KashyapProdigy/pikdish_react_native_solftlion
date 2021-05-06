@@ -14,11 +14,12 @@ import {
   } from 'react-native';
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
+import Modal from 'react-native-modal';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
 // import AppLoader from '../component/loader';
 import DropdownAlert from 'react-native-dropdownalert';
+import { CheckBox } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Splash extends React.Component {
@@ -89,12 +90,43 @@ export default class Splash extends React.Component {
                 ]
             },
           ],
+          list:[
+              {
+                id:0,
+                name:"Spoon",
+                checked:false
+              },
+              {
+                id:1,
+                name:"Spoon",
+                checked:false
+              },
+              {
+                id:2,
+                name:"Fork",
+                checked:false
+              },
+              {
+                id:3,
+                name:"Straw",
+                checked:false
+              },
+              {
+                id:4,
+                name:"Others",
+                checked:false
+              },
+          ],
+          waiterModalVisible:false,
           appLoading:false,
+          checked:true
       };
 
       this.onBackClick = this.onBackClick.bind(this);
       this.onCallWaiterClick = this.onCallWaiterClick.bind(this);
+      this.onWaiterModalSubmitClick = this.onWaiterModalSubmitClick.bind(this);
       this.onBillDetailClick = this.onBillDetailClick.bind(this);
+      this.checkThisBox = this.checkThisBox.bind(this);
 
     }
 
@@ -105,12 +137,22 @@ export default class Splash extends React.Component {
     }
 
     onCallWaiterClick(){
+        this.setState({waiterModalVisible:true})
+    }
+
+    onWaiterModalSubmitClick(){
 
     }
 
     onBillDetailClick(){
 
     }
+
+    checkThisBox=(itemID)=>{
+        let list=this.state.list
+        list[itemID].checked=!list[itemID].checked
+        this.setState({list:list})
+     }
 
 
     render () {
@@ -189,6 +231,46 @@ export default class Splash extends React.Component {
               }
         />
         </View>
+        <Modal isVisible={this.state.waiterModalVisible} style={{margin:0}}>
+        <View style={styles.modalmain}>
+            <View style={styles.modalsub1}>
+                <Text style={{fontSize:fonts.normal,color:colors.black}}>{'Call Waiter for'}</Text>
+                <TouchableOpacity onPress={()=>{this.setState({waiterModalVisible:false})}}><Image source={require('../../assets/icon/close_icon.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' /></TouchableOpacity>
+                </View>
+            <View style={styles.modalsub2}> 
+                <FlatList
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                style={{}}
+                contentContainerStyle={{ paddingBottom: hp('4%')}}
+                data={this.state.list}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) =>                     
+                        <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('80%') ,}}>
+                                <CheckBox
+                                title={item.name}
+                                checkedIcon='dot-circle-o'
+                                uncheckedIcon='circle-o'
+                                checkedColor={colors.primary}
+                                uncheckedColor={colors.gray}
+                                checked={this.state.list[item.id].checked}
+                                containerStyle={{backgroundColor:colors.white,borderWidth:0}}
+                                onPress={() => this.checkThisBox(item.id)}
+                                />
+                        </View>
+                        
+                    }
+                />
+            </View>
+            <View style={styles.modalsub3}>            
+            <TouchableOpacity onPress={()=>{
+                this.onWaiterModalSubmitClick();
+            }}  style={styles.modalButtonContainer}>
+                <Text style={styles.modalButtonText}>Call Waiter</Text>
+            </TouchableOpacity>
+            </View>
+        </View>
+        </Modal>
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        {/* <AppLoader isAppLoading={this.state.appLoading}/> */}
        </View>
@@ -206,6 +288,10 @@ const styles = StyleSheet.create({
     subcontainer1:{
         height:hp('7%'),
     },
+    modalmain:{height:hp('58%'),width:wp('100%'),position:"absolute",alignSelf:"center",bottom:0,backgroundColor:colors.white},
+    modalsub1:{height:hp('8%'),alignItems:"center",justifyContent:"space-between",flexDirection:"row",alignSelf:"center",width:wp('100'),paddingHorizontal:wp('5%'),borderBottomWidth:hp('0.15%'),borderColor:colors.gray},
+    modalsub2:{height:hp('40%'),justifyContent:"center",alignSelf:"center",alignItems:"center",width:wp('100')},
+    modalsub3:{height:hp('9.85%'),justifyContent:"center",alignSelf:"center",alignItems:"center",width:wp('100'),borderTopWidth:hp('0.15%'),borderColor:colors.gray},
     subcontainerimagecontainer:{
         height:hp('15%'),
         width:wp('86%'),
@@ -318,6 +404,19 @@ const styles = StyleSheet.create({
         marginTop:hp('2%'),
     },
     loginButtonText:{
+        color:colors.white,
+        fontSize:font.subnormal
+    },
+    modalButtonContainer:{
+        alignItems:'center',
+        justifyContent:"center",
+        alignSelf:"center",
+        backgroundColor:colors.primary,
+        height:hp('6%'),
+        width:wp('50%'),
+        borderRadius:hp('1%'),
+    },
+    modalButtonText:{
         color:colors.white,
         fontSize:font.subnormal
     },

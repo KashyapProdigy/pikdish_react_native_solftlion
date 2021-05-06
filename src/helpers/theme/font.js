@@ -3,6 +3,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 export default font = {
     subnormal2:hp('1.3%'),
     subnormal:hp('1.5%'),
+    normal1:hp('1.75%'),
     normal:hp('2%'),
     normal2:hp('2.25%'),
     normalheader:hp('2.5%'),

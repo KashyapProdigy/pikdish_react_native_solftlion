@@ -78,6 +78,7 @@ export default class Splash extends React.Component {
 
     onTableOrderClick(){
         this.props.navigation.navigate('DineIn');
+        // this.props.navigation.navigate('FoodCourtHome');
     }
 
     onPreOrderClick(){

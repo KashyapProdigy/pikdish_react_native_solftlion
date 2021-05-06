@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
     Text,
     View,
@@ -9,134 +9,24 @@ import {
     Dimensions, 
     TouchableOpacity,
     StatusBar,
-    Animated,
     FlatList,
-    ScrollView,
-    Keyboard
+    Keyboard,
+    ScrollView
   } from 'react-native';
-
-import Modal from 'react-native-modal';
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
+import Accordion from 'react-native-collapsible/Accordion';
 // import AppLoader from '../component/loader';
 import DropdownAlert from 'react-native-dropdownalert';
-import MaterialTabs from 'react-native-material-tabs';
-import Accordion from 'react-native-collapsible/Accordion';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-          searchstring:'',
-          ApplyCodeModalVisible:true,
-          appLoading:false,
-          selectedTab:0,
-          renderTerms:[
-            {
-                id:1,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab1.png'),
-            },
-            {
-                id:2,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"Dine In,Pre-order",
-                image:require('../../assets/image/offer_tab2.png'),
-            },
-            {
-                id:3,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab3.png'),
-            },
-            {
-                id:4,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab4.png'),
-            },
-            {
-                id:5,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab5.png'),
-            },
-            {
-                id:6,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab1.png'),
-            },
-            {
-                id:7,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab3.png'),
-            },
-            {
-                id:8,
-                name:"Jodhpur Dabbawaladsafdsafdsafdsafdsa",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab3.png'),
-            },
-            {
-                id:9,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                coupon_rate:"24% off",
-                time:"30 mins",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab5.png'),
-            },
-            {
-                id:10,
-                name:"Jodhpur Dabbawala",
-                coupon_name:"Use coupon PIKDISH",
-                time:"30 mins",
-                coupon_rate:"24% off",
-                rating:"4.4",
-                coupon_type:"On All Order",
-                image:require('../../assets/image/offer_tab1.png'),
-            },
-          ],
+          activeSections: [],
           renderOBJ:{
             resto:{
               name:"Lakshmi Restaurant",
@@ -148,7 +38,9 @@ export default class Splash extends React.Component {
             categorys:[  
                  {
                   "id": "26576",
-                  "name": "Lakshmi Restaurant",
+                  "name": "Laxmi Fast Food",
+                  "date":"05/03/2019",
+                  "bill":"$500",
                   "position": "0",
                   "menu-items": [
                     {
@@ -232,6 +124,8 @@ export default class Splash extends React.Component {
                 {
                   "id": "26582",
                   "name": "Jio Food Mall",
+                  "date":"05/03/2025",
+                  "bill":"$500",
                   "position": "0",
                   "menu-items": [
                     {
@@ -389,55 +283,42 @@ export default class Splash extends React.Component {
                   customizable:true,
               },
           ]
-          },
-          activeSections: [],
+        },
+          appLoading:false,
       };
 
-
-
       this.onBackClick = this.onBackClick.bind(this);
-      this.onRestaurantClcik = this.onRestaurantClcik.bind(this);
-      this.onRestoHeartClick = this.onRestoHeartClick.bind(this);
-
+      this.onRepeatOrderClick = this.onRepeatOrderClick.bind(this);
     }
 
-    componentDidMount(){
-        var that = this;
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-          });
-    }
-    componentWillUnmount() {
-        this._unsubscribe();
-    }
+    componentDidMount(){}
 
     onBackClick(){
         this.props.navigation.goBack();
     }
 
-    onRestaurantClcik(){
-        this.props.navigation.navigate('RestoFoodList');
-    }
-
-    onRestoHeartClick(){
+    onRepeatOrderClick(){
+        this.props.navigation.goBack();
     }
 
     _renderHeader = section => {
         return (
-          <View style={{paddingVertical:hp('1.5%'),borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%')}}>
-                <View style={{flexDirection:"row",alignItems:"center"}}>
-                    <Text style={{fontSize:fonts.normal,color:colors.black,marginLeft:wp('1%')}} numberOfLines={1}>{section.name}</Text>
-                </View>
+          <View style={{paddingTop:hp('4%'),paddingBottom:hp('2%')}}>
+                <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>{section.name}</Text>
                 <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",width:wp('90%'),alignSelf:"center"}}>
                     <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{section.itemcount}</Text>
+                    <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>$200</Text>
                     <Image source={require('../../assets/icon/drop_down_black.png')} style={{height:hp('2%'),width:hp('2%'),bottom:hp('2%')}} resizeMode='contain' />
-                </View>
+                    </View>
           </View>
         );
       };
 
       _renderContent = section => {
+        console.log("i am here");
             return( 
-            <FlatList
+            <View>
+              <FlatList
               numColumns={1}
               showsVerticalScrollIndicator={false}
               style={{}}
@@ -445,25 +326,24 @@ export default class Splash extends React.Component {
               data={section["sub-items"]}
               keyExtractor={item => item.id}
               renderItem={({ item }) =>                     
-                      <View style={{marginTop:hp('2%'),height:hp('8%'),width:wp('90%'),alignSelf:"center",alignItems:"center",flexDirection:"row"}}>
-                          <View style={{width:wp('8%'),height:hp('8%'),alignItems:"center"}}>
+                      <View style={{marginTop:hp('2%'),height:hp('6%'),width:wp('90%'),alignSelf:"center",alignItems:"center",flexDirection:"row"}}>
+                          <View style={{width:wp('8%'),height:hp('6%'),alignItems:"center"}}>
                           <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%'),marginTop:hp('0.5%')}} resizeMode='contain' />
                           </View>
 
-                          <View style={{width:wp('57%'),height:hp('8%'),paddingRight:wp('5%')}}>
+                          <View style={{width:wp('57%'),height:hp('6%'),paddingRight:wp('5%')}}>
                           <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>{item.category_name}</Text>  
-                          <Text style={{fontSize:fonts.normal1,color:colors.gray}} numberOfLines={1}>$20</Text>  
-                          <Text style={{fontSize:fonts.normal1,color:colors.gray}} numberOfLines={1}>Banna chips,fruit,chutney...</Text>  
+                          <Text style={{fontSize:fonts.normal1,color:colors.gray}} numberOfLines={1}>1 Plate</Text>  
                           </View>
 
-                          <View style={{width:wp('25%'),height:hp('8%'),justifyContent:"center",alignItems:"center"}}>
-                            <View style={{height:hp('3%'),width:wp('15%'),borderWidth:hp('0.15%'),borderColor:colors.gray,justifyContent:"center",alignItems:"center"}}>
-                            <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>ADD</Text>
-                            </View>
+                          <View style={{width:wp('25%'),height:hp('6%'),alignItems:"flex-end",justifyContent:"flex-start",}}>
+                            <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>$24</Text>
                           </View>
                       </View>
                   }
-            />
+             />
+                <TouchableOpacity onPress={()=>{this.onRepeatOrderClick()}}><Text style={{fontSize:fonts.normal,color:colors.primary,alignSelf:"flex-end",}} numberOfLines={1}>Repeat Order</Text></TouchableOpacity>
+             </View>
                   )
       };
 
@@ -478,118 +358,29 @@ export default class Splash extends React.Component {
            backgroundColor="white"
            barStyle = "dark-content"
          />
-
-        <View style={styles.modalmain}>
-            <TouchableOpacity onPress={this.onBackClick} style={styles.modalsub1}>
+        <View style={styles.subcontainer1}>
+        <View style={styles.subcontainertextcontainer}>
+            <TouchableOpacity onPress={this.onBackClick}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
             </TouchableOpacity>
-            <View style={styles.searchstringInputContainer}>
-            <TextInput style = {styles.searchstringInputField}
-                    ref={(input) => { this.searchstringInputRef = input }}
-                    // returnKeyType="next"
-                    // onSubmitEditing={() => { Keyboard.dismiss() }}
-                    // blurOnSubmit={false}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Search for restaurant & dishes..."
-                    placeholderTextColor={colors.gray}
-                    autoCapitalize = "none"
-                    value={this.state.searchstring}
-                    onChangeText={(searchstring) => this.setState({searchstring})}  />
-            </View>
+            <View></View>
+            <View></View>
+        </View>
         </View>
 
-        <View style={{height:hp('93%'),width:wp('100%')}}>
-        <MaterialTabs
-        items={[
-                <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",borderBottomColor:this.state.selectedTab==0?colors.primary:colors.off_white,borderBottomWidth:hp('0.2%')}}><Text style={{fontSize:fonts.normalheader,padding:hp('1%')}} numberOfLines={1}>Restaurants</Text></View>
-                ,<View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",borderBottomColor:this.state.selectedTab==1?colors.primary:colors.off_white,borderBottomWidth:hp('0.2%')}}><Text style={{fontSize:fonts.normalheader}} numberOfLines={1}>Dishes</Text></View>
-        ,]}
-        selectedIndex={this.state.selectedTab}
-        onChange={(index)=>{this.setState({selectedTab:index})}}
-        barColor={colors.off_white}
-        indicatorColor={colors.off_white}
-        activeTextColor="black"
-        inactiveTextColor="black"
-        barHeight={hp('7%')}
-        textStyle={{fontSize:fonts.normal}}
-      />
-      {
-          this.state.selectedTab == 0 ?
-          <FlatList
-          numColumns={1}
-          showsVerticalScrollIndicator={false}
-          style={{height:hp('86'),width:wp('100%')}}
-          contentContainerStyle={{ paddingBottom: hp('10%')}}
-          data={this.state.renderTerms}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) =>                     
-          <TouchableOpacity onPress={()=>{this.onRestaurantClcik()}} style={{marginTop:hp('1%'),alignSelf:"center",alignItems:"center",flexDirection:"row",height:hp('12%'),width:wp('96%'),borderRadius:hp('2%'),backgroundColor:colors.white}}>
-          <View style={{height:hp('12%'),width:wp('25%'),alignItems:"center",justifyContent:"center"}}>
-              <Image source={item.image} style={{height:hp('9%'),width:wp('20%'),borderRadius:hp('0.5%')}} resizeMode='stretch'></Image>
-          </View>
-          <View style={{height:hp('12%'),width:wp('47%'),justifyContent:"center"}}>
-              <View style={{}}>
-                <View style={{flexDirection:"row",alignItems:"center",paddingRight:wp('1%')}} >
-                  <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-                    <Text style={{fontSize:fonts.normal,color:colors.black,marginLeft:wp('1%')}} numberOfLines={1}>{item.name}</Text>
-                  </View>
-              <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>{item.coupon_name}</Text>
-              <View style={{borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),width:wp('37%')}}>
-              </View>
-              </View>
-              <View style={{flexDirection:"row"}}>
-              <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.rating}</Text>
-              <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>|{item.time}|</Text>
-              <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.coupon_type}</Text>
-              </View>
-              
-          </View>
-          <View style={{height:hp('12%'),width:wp('24%'),alignItems:"center",justifyContent:"center"}}>
-              <View style={{flexDirection:"row",marginBottom:hp('1%')}}>
-              <Image source={require('../../assets/icon/discount_primary.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-              <Text style={{fontSize:fonts.subnormal,color:colors.primary,marginLeft:wp('1%')}} numberOfLines={1}>{item.coupon_rate}</Text>
-              </View>
-              <TouchableOpacity onPress={()=>{this.onRestoHeartClick()}} style={{height:hp('4%'),width:hp('4%'),borderRadius:hp('4%')/2,elevation:9,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
-              <Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-              </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-                  
-              }
-        />
-        :
-        <ScrollView 
-        nestedScrollEnabled={true}
-        style={{height:hp('86'),width:wp('100%')}}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: hp('20%')}}
+        <View    
+            style={styles.subcontainer2}
         >
-        {
-            this.state.renderOBJ.categorys.map((item)=>{
-                    return( 
-                            <View style={{marginVertical:hp('3%'),width:wp('90%'),alignSelf:"center",}}>
-                                <View style={{flexDirection:"row",alignItems:"center"}}>
-                                    <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /> 
-                                    <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black,marginLeft:wp('2%')}} numberOfLines={1}>{item.name}</Text>
-                                </View>  
-                                    <Accordion
-                                        sections={item['menu-items']}
-                                        activeSections={this.state.activeSections}
-                                        keyExtractor={item => item.id}
-                                        renderHeader={this._renderHeader}
-                                        renderContent={this._renderContent}
-                                        onChange={this._updateSections}
-                                        underlayColor={"#fff"}                  
-                                        containerStyle={{ backgroundColor: "transparent" }}
-                                    />  
-                            </View>
-                    )
-                
-            })
-        }
-        </ScrollView>
-      }
+        <View style={{alignSelf:"center",height:hp('15%'),width:wp('90%'),justifyContent:"center",alignItems:"center"}}>
+        <Image source={require('../../assets/image/splash_logo.png')} style={{alignSelf:"center",height:hp('15%'),width:wp('90%')}} resizeMode='contain'></Image>
+        </View>
+
+        <View style={{alignSelf:"center",height:hp('15%'),width:wp('90%'),justifyContent:"center",alignItems:"center"}}>
+            
+        </View>
+
+
+
         </View>
 
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
@@ -604,11 +395,15 @@ const styles = StyleSheet.create({
     maincontainer:{
         height:hp('100%'),
         width:wp('100%'),
-        backgroundColor:colors.off_white
+        backgroundColor:colors.white
     },
     subcontainer1:{
-        height:hp('10%'),
+        height:hp('7%'),
     },
+    modalmain:{height:hp('58%'),width:wp('100%'),position:"absolute",alignSelf:"center",bottom:0,backgroundColor:colors.white},
+    modalsub1:{height:hp('8%'),alignItems:"center",justifyContent:"space-between",flexDirection:"row",alignSelf:"center",width:wp('100'),paddingHorizontal:wp('5%'),borderBottomWidth:hp('0.15%'),borderColor:colors.gray},
+    modalsub2:{height:hp('40%'),justifyContent:"center",alignSelf:"center",alignItems:"center",width:wp('100')},
+    modalsub3:{height:hp('9.85%'),justifyContent:"center",alignSelf:"center",alignItems:"center",width:wp('100'),borderTopWidth:hp('0.15%'),borderColor:colors.gray},
     subcontainerimagecontainer:{
         height:hp('15%'),
         width:wp('86%'),
@@ -616,27 +411,22 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
     },
-    modalmain:{height:hp('7%'),width:wp('100%'),flexDirection:"row",backgroundColor:colors.white},
-    modalsub1:{height:hp('7%'),alignItems:"center",justifyContent:"center",width:wp('10%')},
-
-
     subcontainerimage:{
         height:hp('15%'),
         width:wp('70%'),
         alignSelf:"center"
     },
     subcontainertextcontainer:{
-        height:hp('10%'),
-        width:wp('96%'),
+        height:hp('7%'),
+        width:wp('90%'),
         alignSelf:"center",
-        justifyContent:"center"
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between"
     },
     subcontainertextheader:{
-        fontSize:fonts.navigationheader,
-        color:colors.black,
-    },
-    applycodeheader:{
         fontSize:fonts.normalheader,
+        fontWeight:"bold",
         color:colors.black,
     },
     subcontainertextsubheader:{
@@ -644,22 +434,34 @@ const styles = StyleSheet.create({
         color:colors.gray,
     },
     subcontainer2:{
-        height:hp('90%'),
-        width:wp('86%'),
+        height:hp('93%'),
+        width:wp('100%'),
+        backgroundColor:colors.off_white
+    },
+    subcontainer2flatlist:{
+        height:hp('93%'),
+        width:wp('94%'),
         alignSelf:"center",
-        alignItems:'center',
     },
     backgroundImage: {
         height:hp('100%'),
         width:wp('100%')
     },
     pageheader:{
-        fontSize:hp('4%'),
-        color:'#4F45F0'
+        marginTop:hp('10%'),
+        marginLeft:wp('10%'),
+        fontSize:fonts.navigationheader,
+        color:colors.black,
+    },
+    pagesubheader:{
+        marginTop:hp('1%'),
+        marginLeft:wp('10%'),
+        fontSize:fonts.normal,
+        color:colors.gray,
     },
     forgotPasswordText:{
         fontSize:font.normal,
-        color:colors.black
+        color:colors.primary
     },
     navigatorText:{
         fontSize:font.normal,
@@ -667,13 +469,8 @@ const styles = StyleSheet.create({
     },
     forgotPasswordContainer:{
         flexDirection:"row",
-        marginTop:hp('2%'),
-        width:wp('86%'),
+        width:wp('90%'),
         justifyContent:"space-between"
-    },
-    pagesubheader:{
-        marginTop:hp('2%'),
-        fontSize:hp('2.5%')
     },
     inputheader:{
         marginTop:hp("3%"),
@@ -697,19 +494,6 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         height:hp('5%'),
     },
-    searchstringInputContainer:{
-        flexDirection:'row',
-        backgroundColor:colors.white,
-        alignSelf:"center",
-        height:hp('7%'),
-        width:wp('85%'),
-    },
-    searchstringInputField:{
-        flex:1,
-        fontSize:font.normal,
-        color:colors.black,
-        justifyContent:"center"
-    },
     iconInputField:{
         flex:1,
         fontSize:font.normal,
@@ -725,27 +509,28 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignSelf:"center",
         backgroundColor:colors.primary,
-        height:hp('7%'),
-        width:wp('40%'),
+        marginHorizontal:wp('5%'),
+        height:hp('5%'),
+        width:wp('25%'),
         borderRadius:hp('1%'),
-        marginTop:hp('5%'),
+        marginTop:hp('2%'),
     },
     loginButtonText:{
         color:colors.white,
-        fontSize:font.normal
+        fontSize:font.subnormal
     },
-    searchstringButtonContainer:{
+    modalButtonContainer:{
         alignItems:'center',
         justifyContent:"center",
         alignSelf:"center",
         backgroundColor:colors.primary,
-        height:hp('7%'),
-        width:wp('80%'),
+        height:hp('6%'),
+        width:wp('50%'),
         borderRadius:hp('1%'),
     },
-    searchstringButtonText:{
+    modalButtonText:{
         color:colors.white,
-        fontSize:font.normal
+        fontSize:font.subnormal
     },
     socialButtonContainer:{
         flexDirection:'row',

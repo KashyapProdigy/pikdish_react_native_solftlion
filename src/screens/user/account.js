@@ -12,9 +12,7 @@ import {
     Keyboard,
     ScrollView
   } from 'react-native';
-
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
 // import AppLoader from '../component/loader';
@@ -43,7 +41,6 @@ export default class Splash extends React.Component {
       this.onSendFeedbackClick = this.onSendFeedbackClick.bind(this);
       this.onRateUsClick = this.onRateUsClick.bind(this);
       this.onPrivacyClick = this.onPrivacyClick.bind(this);
-      this.onTermsClick = this.onTermsClick.bind(this);
       this.onContactClick = this.onContactClick.bind(this);
       this.onSignOutClick = this.onSignOutClick.bind(this);
 
@@ -56,15 +53,18 @@ export default class Splash extends React.Component {
     }
 
     onEditProfileClick(){
+        this.props.navigation.navigate('EditProfile');
     }
 
     onYourOrderClick(){
+        this.props.navigation.navigate('OrderHistory');
     }
 
     onFavouriteRestaurantClick(){
     }
 
     onYourEventClick(){
+        this.props.navigation.navigate('EventHistory');
     }
 
     onWalletClick(){
@@ -77,20 +77,22 @@ export default class Splash extends React.Component {
     }
 
     onSendFeedbackClick(){
+        this.props.navigation.navigate('Feedback');
     }
 
     onRateUsClick(){
     }
 
     onPrivacyClick(){
-        this.props.navigation.navigate("Privacy")
+        this.props.navigation.navigate("Privacy");
     }
 
     onTermsClick(){
-        this.props.navigation.navigate("Terms")
+        this.props.navigation.navigate("Terms");
     }
 
     onContactClick(){
+        this.props.navigation.navigate('ContactUs');
     }
 
     onSignOutClick(){
@@ -135,7 +137,7 @@ export default class Splash extends React.Component {
             </View>
 
             <View style={{alignItems:"center",justifyContent:"center"}}>
-                <TouchableOpacity onPress={this.onEditProfileClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity onPress={this.onEditProfileClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}}>
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_profile.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -147,7 +149,7 @@ export default class Splash extends React.Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onYourOrderClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity onPress={this.onYourOrderClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}}>
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_order.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -159,7 +161,7 @@ export default class Splash extends React.Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onFavouriteRestaurantClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity onPress={this.onFavouriteRestaurantClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_favourite.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -171,7 +173,7 @@ export default class Splash extends React.Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onYourEventClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity onPress={this.onYourEventClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}}>
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_event.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -183,7 +185,7 @@ export default class Splash extends React.Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onWalletClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity onPress={this.onWalletClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_wallet.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -195,7 +197,7 @@ export default class Splash extends React.Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onSettingClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity onPress={this.onSettingClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_setting.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -207,7 +209,7 @@ export default class Splash extends React.Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity  onPress={this.onDashboardClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+                <TouchableOpacity  onPress={this.onDashboardClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_dashboard.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
@@ -223,7 +225,7 @@ export default class Splash extends React.Component {
             <View style={{width:wp('80%'),borderBottomWidth:hp('0.1%'),borderColor:colors.gray,marginTop:hp('3%'),alignSelf:"center"}}></View>
 
             <View style={{alignItems:"center",justifyContent:"center"}}>
-            <TouchableOpacity onPress={this.onSendFeedbackClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+            <TouchableOpacity onPress={this.onSendFeedbackClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>         
                 <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Send Feedback</Text>
                 </View>
@@ -232,7 +234,7 @@ export default class Splash extends React.Component {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.onRateUsClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+            <TouchableOpacity onPress={this.onRateUsClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>         
                 <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Rate us on Play/App Store</Text>
                 </View>
@@ -241,7 +243,7 @@ export default class Splash extends React.Component {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.onPrivacyClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+            <TouchableOpacity onPress={this.onPrivacyClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>         
                 <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Privacy Policy</Text>
                 </View>
@@ -250,7 +252,7 @@ export default class Splash extends React.Component {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.onTermsClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+            <TouchableOpacity onPress={this.onTermsClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>         
                 <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Terms of Service</Text>
                 </View>
@@ -259,7 +261,7 @@ export default class Splash extends React.Component {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.onContactClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} onPress={this.onShippingAddressClick}>
+            <TouchableOpacity onPress={this.onContactClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
                 <View style={{alignItems:'center',flexDirection:"row"}}>         
                 <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Contact Us</Text>
                 </View>

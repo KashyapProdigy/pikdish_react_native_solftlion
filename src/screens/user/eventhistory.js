@@ -10,31 +10,90 @@ import {
     TouchableOpacity,
     StatusBar,
     FlatList,
-    Keyboard,
-    Linking
+    Keyboard
   } from 'react-native';
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
 // import AppLoader from '../component/loader';
 import DropdownAlert from 'react-native-dropdownalert';
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import { RNCamera } from 'react-native-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-        scan: false,
-        ScanResult: false,
-        scanresultcode:0,
-        result: null,
-        appLoading:false,
+        renderTerms:[
+            {
+                id:1,
+                name:"Jodhpur Dabbawala",
+                total_price:"$ 500.00",
+                timer:"00:10:20",
+                icon1:"veg",
+                fooditems:[
+                    {
+                    icon:"veg",
+                    name:"Sandwich Dhokla",
+                    qty:"1",
+                    plate:"1 plate",
+                    price:"$24"
+                    },
+                ]
+            },
+            {
+                id:2,
+                name:"Jodhpur Dabbawala",
+                total_price:"$ 500.00",
+                timer:"00:10:20",
+                icon1:"veg",
+                fooditems:[
+                    {
+                    icon:"veg",
+                    name:"Sandwich Dhokla",
+                    qty:"1",
+                    plate:"1 plate",
+                    price:"$24"
+                    },
+                    {
+                        icon:"veg",
+                        name:"Sandwich Dhokla",
+                        qty:"1",
+                        plate:"1 plate",
+                        price:"$24"
+                    },
+                    {
+                            icon:"veg",
+                            name:"Sandwich Dhokla",
+                            qty:"1",
+                            plate:"1 plate",
+                            price:"$24"
+                    },
+                ]
+            },
+            {
+                id:3,
+                name:"Jodhpur Dabbawala",
+                total_price:"$ 500.00",
+                timer:"00:10:20",
+                icon1:"veg",
+                fooditems:[
+                    {
+                    icon:"veg",
+                    name:"Sandwich Dhokla",
+                    qty:"1",
+                    plate:"1 plate",
+                    price:"$24"
+                    },
+                ]
+            },
+          ],
+          appLoading:false,
       };
 
       this.onBackClick = this.onBackClick.bind(this);
+      this.onEventClick = this.onEventClick.bind(this);
 
     }
 
@@ -44,48 +103,9 @@ export default class Splash extends React.Component {
         this.props.navigation.goBack();
     }
 
-   onSuccess = (e) => {
-        const check = e.data.substring(0, 4);
-        console.log('scanned data' + check);
-        this.setState({
-            result: e,
-            scan: false,
-            ScanResult: true,
-            scanresultcode:0,
-        })
-        if (check === 'http') {
-            // Linking
-            //     .openURL(e.data)
-            //     .catch(err => console.error('An error occured', err));
-                
-                this.setState({
-                    scanresultcode:1
-                })
-                this.props.navigation.replace('QRsuccess');
-        } else {
-            this.setState({
-                result: e,
-                scan: false,
-                ScanResult: true,
-                scanresultcode:2
-            })
-        }
-
+    onEventClick(){
+        this.props.navigation.navigate('EventPage');
     }
-
-    activeQR = () => {
-        this.setState({
-            scan: true
-        })
-    }
-    scanAgain = () => {
-        this.setState({
-            scan: true,
-            ScanResult: false
-        })
-    }
-
-
 
 
     render () {
@@ -100,44 +120,50 @@ export default class Splash extends React.Component {
             <TouchableOpacity onPress={this.onBackClick}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
             </TouchableOpacity>
+            <View>
+            <Text style={styles.subcontainertextheader}>{'My Events'}</Text>
+            </View>
+            <View></View>
         </View>
         </View>
 
         <View style={styles.subcontainer2}>
+        <FlatList
+          numColumns={1}
+          showsVerticalScrollIndicator={false}
+          style={styles.subcontainer2flatlist}
+          contentContainerStyle={{ paddingBottom: hp('10%')}}
+          data={this.state.renderTerms}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) =>                     
+                  <TouchableOpacity onPress={this.onEventClick} style={{marginTop:hp('2%'),alignSelf:"center",width:wp('100%'),paddingHorizontal:wp('6%'),paddingVertical:hp('2%'), backgroundColor:colors.white }}>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Name : </Text>
+                        </View>
 
-        <View style={{height:hp('25%'),width:wp('100%'),justifyContent:"center",alignItems:"center"}}>
-            <Image source={this.state.result != null  && this.state.scanresultcode == 2 ? require('../../assets/image/scanner_error.png') :require('../../assets/image/scanner.png')} style={{height:hp('35%'),width:wp('100%')}} resizeMode='cover' />
-        </View>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Cafe Name : </Text>
+                        </View>
 
-        <View style={{height:hp('65%'),width:wp('100%'),justifyContent:"center",alignItems:"center",backgroundColor:colors.dark_gray}}>
-        <QRCodeScanner
-                            reactivate={true}
-                            showMarker={true}
-                            cameraTimeout={10000}
-                            ref={(node) => { this.scanner = node }}
-                            cameraStyle={{height:hp('20%'),width:hp('45%'),alignSelf:"center"}}
-                            onRead={this.onSuccess}
-                            cameraTimeoutView={
-                                <View  style={{height:hp('30%'),width:wp('80%'),alignSelf:"center",alignItems:"center",justifyContent:"center",backgroundColor:colors.white}}>
-                                    <View><Text style={{fontSize:fonts.normal2,color:colors.black}} numberOfLines={1}>Camera Timeouted</Text></View>
-                                    <View><Text style={{fontSize:fonts.subnormal,color:colors.black,marginTop:hp('1%')}} numberOfLines={1}>Tap to try again !</Text></View>
-                                </View>
-                            }
-                            bottomContent={
-                                this.state.result != null  && this.state.scanresultcode == 2 ?
-                                <View style={{height:hp('10%'),width:wp('100%'),alignSelf:"center",backgroundColor:colors.white,alignItems:"center",justifyContent:"center"}}>
-                                <Text style={{fontSize:fonts.normalheader,color:colors.primary}} numberOfLines={1}>Invalid QR-Code !!</Text>
-                                    <TouchableOpacity  onPress={() => this.scanner.reactivate()}>
-                                    <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>Explore Menu !!</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                : 
-                                <View></View>
-                            }
-                        />
-
-        </View>
-
+                        <View style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row"}}>
+                        <View style={{}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Ticket price : </Text>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Date & Time : </Text>
+                        <View style={{flexDirection:"row",paddingVertical:hp('0.5%'),paddingHorizontal:hp('1%'),backgroundColor:colors.gray,borderRadius:hp('2%'),marginLeft:wp('1%'),justifyContent:"center",alignItems:"center"}}>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>27/10/2019 9:30AM</Text>
+                        <Image source={require('../../assets/icon/event_timer.png')} style={{height:hp('2.5%'),width:wp('2.5%'),marginLeft:wp('1%')}} resizeMode='contain' />
+                        </View>
+                        </View>
+                        </View>
+                        <View style={{}}>
+                        <Image source={require('../../assets/image/event_list.png')} style={{height:hp('20%'),width:wp('88%'),borderRadius:hp('2%'),marginTop:hp('2%')}} resizeMode='cover' />
+                        </View>
+                  </TouchableOpacity>
+                  
+              }
+        />
         </View>
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        {/* <AppLoader isAppLoading={this.state.appLoading}/> */}
@@ -174,6 +200,7 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         flexDirection:"row",
         alignItems:"center",
+        justifyContent:"space-between"
     },
     subcontainertextheader:{
         fontSize:fonts.normalheader,
@@ -261,14 +288,14 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         backgroundColor:colors.primary,
         marginHorizontal:wp('5%'),
-        height:hp('6%'),
-        width:wp('70%'),
+        height:hp('5%'),
+        width:wp('25%'),
         borderRadius:hp('1%'),
-        marginTop:hp('7%'),
+        marginTop:hp('2%'),
     },
     loginButtonText:{
         color:colors.white,
-        fontSize:font.normal
+        fontSize:font.subnormal
     },
     socialButtonContainer:{
         flexDirection:'row',
