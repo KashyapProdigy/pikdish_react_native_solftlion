@@ -25,29 +25,22 @@ export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-          timercount:10,
+          timercount:5,
           appLoading:false,
+          renderDemo:false
       };
+      this.mytimerfucntion = this.mytimerfucntion.bind(this);
+
 
     }
 
     componentDidMount(){
-
-        var that = this;
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            var id = setInterval(() => {
-                if (that.state.timercount > 0) {
-                    that.setState({timercount:that.state.timercount-1,intervalID:id})
-                } 
-                else {
-                    that.setState({intervalID:id})
-                    that.props.navigation.replace('RestoFoodList');
-                }
-            }, 1000);   
+            this.mytimerfucntion();
           });
 
           this._unsubscribe2 = this.props.navigation.addListener('blur', () => {
-            clearInterval(that.state.intervalID);  
+            clearInterval(this.state.intervalID);  
           });
  
     }
@@ -57,6 +50,17 @@ export default class Splash extends React.Component {
         this._unsubscribe2();
     }
 
+    mytimerfucntion(){
+        var id = setInterval(() => {
+            if (this.state.timercount > 0) {
+                this.setState({timercount:this.state.timercount-1,intervalID:id})
+            } 
+            else {
+                this.setState({intervalID:id})
+                this.props.navigation.replace('RestoFoodList');
+            }
+        }, 1000); 
+    }
 
 
 
@@ -85,7 +89,7 @@ export default class Splash extends React.Component {
                         <View style={{height:hp('0.2%'),width:wp('60%'),marginTop:hp('2%'),backgroundColor:colors.gray}}></View>
                         </View>
                         <View style={{height:hp('5%'),width:wp('80%'),alignItems:"center",justifyContent:"flex-end",paddingBottom:hp('1%')}}>
-                        <Text style={{fontSize:fonts.subnormal,color:colors.yellow_font,paddingHorizontal:wp('2%')}} numberOfLines={1}>Disappear in {this.state.timercount} Seconds</Text>
+                            <Text style={{fontSize:fonts.subnormal,color:colors.yellow_font,paddingHorizontal:wp('2%')}} numberOfLines={1}>Disappear in {this.state.timercount} Seconds</Text>
                         </View>
                 </View>
 
@@ -216,10 +220,10 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignSelf:"center",
         backgroundColor:colors.primary,
-        height:hp('7%'),
-        width:wp('40%'),
+        height:hp('6%'),
+        width:wp('60%'),
         borderRadius:hp('1%'),
-        marginTop:hp('5%'),
+        marginTop:hp('6%'),
     },
     loginButtonText:{
         color:colors.white,

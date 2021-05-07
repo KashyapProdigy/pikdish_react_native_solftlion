@@ -4,215 +4,379 @@ import {
     View,
     TextInput,
     StyleSheet,
+    ImageBackground,
     Image,
     Dimensions, 
     TouchableOpacity,
     StatusBar,
-    Keyboard
+    FlatList,
+    Keyboard,
+    ScrollView
   } from 'react-native';
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-// import AppLoader from '../component/loader';
-import DropdownAlert from 'react-native-dropdownalert';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { color } from 'react-native-reanimated';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Accordion from 'react-native-collapsible/Accordion';
+// import AppLoader from '../component/loader';
+import DropdownAlert from 'react-native-dropdownalert';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-          mobile:'',
-          password:'',
-          togglePasswordVisibility:true,
-          appLoading:false,
+        renderOBJ:{
+            resto:{
+              name:"Lakshmi Restaurant",
+              rating:"4.4",
+              time:"30 mins",
+              type:"both",
+              image:require('../../assets/image/welcome_restaurant_bg.png'),
+            },
+            categorys:[  
+                 {
+                  "id": "26576",
+                  "name": "Pizzas",
+                  "position": "0",
+                  "menu-items": [
+                    {
+                      "id": "94298",
+                      "name": "Crisp Touch Pizzas",
+                      "itemcount":"11 items",
+                      "position": 1,
+                      "description": "Tender, Spicy and Juicy. Original or Peri-Crusted",
+                      "images": [],
+                      "sub-items": [
+                        {
+                          "id": "224471",
+                          "name": "3 Chicken Wings",
+                          "position": 1,
+                          "price": "250.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Indian",
+                          "category_name": "Appeteasers",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        },
+                        {
+                          "id": "224472",
+                          "name": "3 Chicken Wings",
+                          "position": 1,
+                          "price": "250.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Indian",
+                          "category_name": "Appeteasers",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        },
+                        {
+                          "id": "224473",
+                          "name": "3 Chicken Wings",
+                          "position": 1,
+                          "price": "250.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Indian",
+                          "category_name": "Appeteasers",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "94301",
+                      "name": "Soft touch Pizza",
+                      "position": 2,
+                      "description": "Chicken Livers Topped with PERi-PERi Sauce, Served with A Roll To Soak Up The Sauce",
+                      "images": [],
+                      "itemcount":"11 items",
+                      "sub-items": [
+                        {
+                          "id": "224479",
+                          "name": "Chicken Livers and Portuguese Roll",
+                          "position": 1,
+                          "price": "250.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Indian",
+                          "category_name": "Appeteasers",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        }
+                      ]
+                    },
+                  ]
+                },
+                {
+                  "id": "26582",
+                  "name": "Sandwiches",
+                  "position": "0",
+                  "menu-items": [
+                    {
+                      "id": "94334",
+                      "name": "Grilled Cheese Sandwiches",
+                      "position": 8,
+                      "description": "",
+                      "itemcount":"11 items",
+                      "images": [],
+                      "sub-items": [
+                        {
+                          "id": "224522",
+                          "name": "Regular",
+                          "position": 1,
+                          "price": "190.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Fast Food",
+                          "category_name": "Fino sides",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        },
+                        {
+                          "id": "224525",
+                          "name": "Large",
+                          "position": 2,
+                          "price": "330.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Fast Food",
+                          "category_name": "Fino sides",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "94337",
+                      "name": "Regular Sandwiches",
+                      "position": 9,
+                      "description": "",
+                      "images": [],
+                      "itemcount":"11 items",
+                      "sub-items": [
+                        {
+                          "id": "224528",
+                          "name": "Regular",
+                          "position": 1,
+                          "price": "190.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Fast Food",
+                          "category_name": "Fino sides",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        },
+                        {
+                          "id": "224531",
+                          "name": "Large",
+                          "position": 2,
+                          "price": "330.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Fast Food",
+                          "category_name": "Fino sides",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "94399",
+                      "name": "Dessert Sandwiches",
+                      "position": 9,
+                      "description": "",
+                      "images": [],
+                      "itemcount":"11 items",
+                      "sub-items": [
+                        {
+                          "id": "123",
+                          "name": "Regular",
+                          "position": 1,
+                          "price": "190.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Fast Food",
+                          "category_name": "Fino sides",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        },
+                        {
+                          "id": "11",
+                          "name": "Large",
+                          "position": 2,
+                          "price": "330.00",
+                          "consumable": "1:1",
+                          "cuisine_name": "Fast Food",
+                          "category_name": "Fino sides",
+                          "discount": {
+                            "type": "",
+                            "amount": "0.00"
+                          },
+                          "tags": []
+                        }
+                      ]
+                    }
+                  ]
+                },     
+            ],
+            recommended:[
+              {
+                  id:1,
+                  desc:"Jodhpur Famous Maggi",
+                  type:"veg",
+                  name:"Ala cater &value mealsasdasdsad sadsad sadsad sadsa",
+                  price:"$200",
+                  image:require('../../assets/image/offer_tab5.png'),            
+                  customizable:true,
+              },
+              {
+                  id:2,
+                  desc:"Jodhpur Famous Maggi",
+                  type:"veg",
+                  name:"Ala cater &value meals",
+                  price:"$200",
+                  image:require('../../assets/image/offer_tab3.png'),            
+                  customizable:true,
+              },
+              {
+                  id:3,
+                  desc:"Jodhpur Famous Maggi",
+                  type:"veg",
+                  name:"Ala cater &value meals",
+                  price:"$200",
+                  image:require('../../assets/image/offer_tab1.png'),            
+                  customizable:true,
+              },
+              {
+                  id:3,
+                  desc:"Jodhpur Famous Maggi",
+                  type:"veg",
+                  name:"Ala cater &value meals",
+                  price:"$200",
+                  image:require('../../assets/image/offer_tab2.png'),            
+                  customizable:true,
+              },
+          ]
+        },
+        appLoading:false,
       };
 
-
-      this.onLoginClick = this.onLoginClick.bind(this);
-      this.onFacebookClick = this.onFacebookClick.bind(this);
-      this.onGoogleClick = this.onGoogleClick.bind(this);
-      this.onRegisterClick = this.onRegisterClick.bind(this);
-      this.onForgotPasswordClick = this.onForgotPasswordClick.bind(this);
+      this.onBackClick = this.onBackClick.bind(this);
+  
     }
 
     componentDidMount(){}
 
-    onLoginClick(){
-        this.props.navigation.replace('MainTabs');
-        // Keyboard.dismiss();
-
-        // const isConnected = await NetworkCheck.isNetworkAvailable()
-
-        // if (isConnected) {  
-
-        // if(this.state.mobile.trim() == ''){
-        //     this.setState({mobile:''},()=>{this.mobileInputRef.focus(); })
-        //     this.dropDownAlertRef.alertWithType('error',"Mobile Number cannot be blank");
-        //   return
-        // }
-        // if(this.state.mobile.length < 10 ){
-        //     this.mobileInputRef.focus();
-        //     this.dropDownAlertRef.alertWithType('error',"Number should contain atleast 10 digits");
-        //   return
-        // }
-        // if(this.state.password == ''){
-        //     this.passwordInputRef.focus()
-        //     this.dropDownAlertRef.alertWithType('error',"Password cannot be blank");
-        //   return
-        // }
-        // if(this.state.password.length < 6 ){
-        //     this.passwordInputRef.focus();
-        //     this.dropDownAlertRef.alertWithType('error',"Password should contain atleast 6 letters");
-        //   return
-        // }
-
-        // let myFormData = new FormData();
-        // myFormData.append("mobile_no", this.state.mobile)
-        // myFormData.append("password", this.state.password)
-        // myFormData.append("type",1)
-
-        // try {
-        //     this.setState({appLoading: true})
-        //     const { data } = await AuthServices.RegisterUser(myFormData)
-        //     console.log(data);
-
-        //     if( data.status == 0 ){
-        //         this.setState({appLoading: false})
-        //         if(data.existing == 1){
-        //             this.mobileInputRef.focus();
-        //             this.dropDownAlertRef.alertWithType('error', 'Number Already Registered', "try diffrent number");
-        //         }else{
-        //             this.dropDownAlertRef.alertWithType('error', 'Something went wrong ...', "Try Again");
-        //         }
-        //     }
-
-        //     if( data.status == 1){
-        //         this.setState({appLoading: false})
-        //         await AsyncStorage.setItem('User',JSON.stringify(data.userdata[0])).then( this.props.navigation.replace('OtpProvider') );  
-        //     }
-
-        //     this.setState({appLoading: false})
-        //   }
-        //   catch(error){
-        //     console.log(error)
-        //     this.setState({appLoading: false})
-        //     console.log(error.data)
-        //     this.dropDownAlertRef.alertWithType('error', " Server Error : 500 ");
-        //   }
-        // }
-        // else{
-        //     this.dropDownAlertRef.alertWithType('error', 'No Internet Connection', "please check your device connection");
-        // }
+    onBackClick(){
+        this.props.navigation.goBack();
     }
-
-    onFacebookClick(){
-        // this.props.navigation.replace('MainTabProvider');
-    }
-
-    onGoogleClick(){
-        // this.props.navigation.replace('MainTabProvider');
-    }
-
-    onForgotPasswordClick(){
-        this.props.navigation.replace('ForgotPassword');
-    }
-
-    onRegisterClick(){
-        this.props.navigation.navigate('Register');
-    }
+ 
 
     render () {
       return (
-        <View style={styles.maincontainer}>
-            
+       <View style={styles.maincontainer}>
         <StatusBar
            backgroundColor="white"
            barStyle = "dark-content"
          />
         <View style={styles.subcontainer1}>
-            <View style={styles.subcontainerimagecontainer}>
-            <Image source={require('../../assets/image/splash_logo.png')} style={styles.subcontainerimage} resizeMode='contain'></Image>
-            </View>
-            <View style={styles.subcontainertextcontainer}>
-            <Text style={styles.subcontainertextheader}>Welcome,</Text>
-            <Text style={styles.subcontainertextsubheader}>Sign in to Continue</Text>
-            </View>
+        <View style={styles.subcontainertextcontainer}>
+            <TouchableOpacity onPress={this.onBackClick}>
+            <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
+            </TouchableOpacity>
+            <View></View>
+            <View></View>
+        </View>
         </View>
 
-        <View style={styles.subcontainer2}>
+        <View    
+            style={styles.subcontainer2}
+        >
+        <View style={{alignSelf:"center",height:hp('15%'),width:wp('90%'),justifyContent:"center",alignItems:"center"}}>
+        <Image source={require('../../assets/image/splash_logo.png')} style={{alignSelf:"center",height:hp('15%'),width:wp('90%')}} resizeMode='contain'></Image>
+        </View>
 
-        <KeyboardAwareScrollView style={{backgroundColor:"transparent"}} extraHeight={100} enableOnAndroid enableAutomaticScroll>
-            <View>
-            <Text style={styles.inputheader}>Mobile no</Text>
-            </View>
-            <View style={[styles.mobileInputContainer,{borderBottomColor:this.state.mobile.length>0?colors.gray:colors.primary,}]}>
-            <TextInput style = {styles.iconInputField}
-                ref={(input) => { this.mobileInputRef = input }}
-                returnKeyType="next"
-                onSubmitEditing={() => { this.passwordInputRef.focus(); }}
-                blurOnSubmit={false}
-                underlineColorAndroid = "transparent"
-                placeholder = ""
-                placeholderTextColor ={colors.gray}
-                autoCapitalize = "none"
-                keyboardType="number-pad"
-                onChangeText={(mobile) => this.setState({mobile})}  />
-            </View>
-            <View>
-            <Text style={styles.inputheader}>Password</Text>
-            </View>
-            <View style={[styles.passwordInputContainer,{borderBottomColor:this.state.password.length>0?colors.gray:colors.primary,}]}>
-            <TextInput style = {styles.iconInputField}
-                ref={(input) => { this.passwordInputRef = input }}
-                returnKeyType="next"
-                onSubmitEditing={() => { Keyboard.dismiss() }}
-                blurOnSubmit={false}
-                underlineColorAndroid = "transparent"
-                placeholder = ""
-                autoCapitalize = "none"
-                secureTextEntry={this.state.togglePasswordVisibility}
-                onChangeText={(password) => this.setState({password})}  />
-            </View>
+        <View style={{height:hp('0.1%'),width:wp('90%'),alignSelf:"center",borderColor:colors.gray,borderStyle: 'dashed',borderWidth:hp('0.10%'),borderRadius: 1,}}>            
+        </View>
 
-            <View style={styles.forgotPasswordContainer}>
-            <View style={{flexDirection:"row"}}><Text style={styles.forgotPasswordText}>New user?</Text><TouchableOpacity onPress={this.onRegisterClick}><Text style={styles.navigatorText}>Sign Up</Text></TouchableOpacity></View>
-            <TouchableOpacity onPress={this.onForgotPasswordClick}><Text style={styles.forgotPasswordText}>Forgot Password?</Text></TouchableOpacity>
-            </View>
+        <View style={{alignSelf:"center",height:hp('11%'),width:wp('90%'),paddingBottom:hp('1.5%'),borderBottomColor:colors.gray,borderBottomWidth:hp('0.15%'),alignItems:"flex-start",justifyContent:"space-between"}}>
+        <View></View>
+        <Text style={{fontSize:fonts.normalheader,color:colors.black,fontWeight:"bold"}} numberOfLines={1}>Address:</Text>
+        <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>445 Mount Eden Road, Mount Eden, Auckland.</Text>
+        </View>
 
-            <TouchableOpacity onPress={()=>{
-                this.onLoginClick();
-            }}  style={styles.loginButtonContainer}>
-                <Text style={styles.loginButtonText}>SIGN IN</Text>
-            </TouchableOpacity>
+        <View style={{alignSelf:"center",height:hp('11%'),width:wp('90%'),paddingBottom:hp('1.5%'),borderBottomColor:colors.gray,borderBottomWidth:hp('0.15%'),alignItems:"flex-start",justifyContent:"space-between"}}>
+        <View></View>
+        <Text style={{fontSize:fonts.normalheader,color:colors.black,fontWeight:"bold"}} numberOfLines={1}>Contact Details:</Text>
+        <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>(+91) 94278 89825</Text>
+        </View>
 
+        <View style={{alignSelf:"center",height:hp('11%'),width:wp('90%'),paddingBottom:hp('1.5%'),borderBottomColor:colors.gray,borderBottomWidth:hp('0.15%'),alignItems:"flex-start",justifyContent:"space-between"}}>
+        <View></View>
+        <Text style={{fontSize:fonts.normalheader,color:colors.black,fontWeight:"bold"}} numberOfLines={1}>Follow us on:</Text>
+        <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>445 Mount Eden Road, Mount Eden, Auckland.</Text>
+        </View>
 
+        <View style={{alignSelf:"center",height:hp('11%'),width:wp('90%'),paddingBottom:hp('1.5%'),borderBottomColor:colors.gray,borderBottomWidth:hp('0.15%'),alignItems:"flex-start",justifyContent:"space-between"}}>
+        <View></View>
+        <Text style={{fontSize:fonts.normalheader,color:colors.black,fontWeight:"bold"}} numberOfLines={1}>Website:</Text>
+        <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>www.jodhpurdabbawala.com</Text>
+        </View>
 
-            <Text style={{fontSize:font.normalheader,color:colors.black,alignSelf:'center',marginTop:hp('3%')}}>-OR-</Text>
+        <View style={{alignSelf:"center",height:hp('34%'),width:wp('100%')}}>
+        <Text style={{fontSize:fonts.normalheader,color:colors.black,marginLeft:wp('5%'),marginTop:hp('2%')}} numberOfLines={1}>PIKDISH Activities</Text>
+                    <ScrollView 
+                        horizontal={true}
+                        nestedScrollEnabled={true}
+                        style={{height:hp('25%'),width:wp('100%')}}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ paddingRight: wp('5%'),alignItems:"center",justifyContent:"center"}}
+                    >
 
-    
-            <TouchableOpacity onPress={this.onFacebookClick}style={styles.socialButtonContainer}>
-            <Image source={require('../../assets/icon/facebook.png')} style={styles.socialButtonImage} resizeMode='contain'></Image>
-            <Text style={styles.socialButtonText}>Sign In with Facebook</Text>
-            </TouchableOpacity>
+                            {
+                                this.state.renderOBJ.recommended.map((item)=>{
+                                    return(
+                                        <View style={{marginVertical:hp('2%'),height:hp('25%'),width:wp('65%'),marginHorizontal:wp('5%'),alignItems:"center",justifyContent:"center"}}>
+                                            <Image source={item.image} style={{height:hp('24%'),width:wp('65%'),borderRadius:hp('2%')}} resizeMode='cover'></Image>
+                                        </View>
+                                    )
+                                })
+                                }
 
-            <TouchableOpacity onPress={this.onGoogleClick} style={styles.socialButtonContainer}>
-            <Image source={require('../../assets/icon/google.png')} style={styles.socialButtonImage} resizeMode='contain'></Image>
-            <Text style={styles.socialButtonText}>Sign In with Google</Text>
-            </TouchableOpacity>
-
-            </KeyboardAwareScrollView>
+                    </ScrollView>
 
         </View>
-        <DropdownAlert inactiveStatusBarStyle="light-content" inactiveStatusBarBackgroundColor="#4F45F0" ref={ref => this.dropDownAlertRef = ref} />
-        {/* <AppLoader isAppLoading={this.state.appLoading}/> */}
+
         </View>
-      );
-    }
+
+       <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
+       {/* <AppLoader isAppLoading={this.state.appLoading}/> */}
+       </View>
+     );
+   
+   }
 }
 
 const styles = StyleSheet.create({
@@ -222,8 +386,12 @@ const styles = StyleSheet.create({
         backgroundColor:colors.white
     },
     subcontainer1:{
-        height:hp('25%'),
+        height:hp('7%'),
     },
+    modalmain:{height:hp('58%'),width:wp('100%'),position:"absolute",alignSelf:"center",bottom:0,backgroundColor:colors.white},
+    modalsub1:{height:hp('8%'),alignItems:"center",justifyContent:"space-between",flexDirection:"row",alignSelf:"center",width:wp('100'),paddingHorizontal:wp('5%'),borderBottomWidth:hp('0.15%'),borderColor:colors.gray},
+    modalsub2:{height:hp('40%'),justifyContent:"center",alignSelf:"center",alignItems:"center",width:wp('100')},
+    modalsub3:{height:hp('9.85%'),justifyContent:"center",alignSelf:"center",alignItems:"center",width:wp('100'),borderTopWidth:hp('0.15%'),borderColor:colors.gray},
     subcontainerimagecontainer:{
         height:hp('15%'),
         width:wp('86%'),
@@ -237,13 +405,16 @@ const styles = StyleSheet.create({
         alignSelf:"center"
     },
     subcontainertextcontainer:{
-        height:hp('8%'),
-        width:wp('86%'),
+        height:hp('7%'),
+        width:wp('90%'),
         alignSelf:"center",
+        flexDirection:"row",
+        alignItems:"center",
         justifyContent:"space-between"
     },
     subcontainertextheader:{
-        fontSize:fonts.authheader,
+        fontSize:fonts.normalheader,
+        fontWeight:"bold",
         color:colors.black,
     },
     subcontainertextsubheader:{
@@ -251,22 +422,34 @@ const styles = StyleSheet.create({
         color:colors.gray,
     },
     subcontainer2:{
-        height:hp('75%'),
-        width:wp('86%'),
+        height:hp('93%'),
+        width:wp('100%'),
+        backgroundColor:colors.off_white
+    },
+    subcontainer2flatlist:{
+        height:hp('93%'),
+        width:wp('94%'),
         alignSelf:"center",
-        alignItems:'center',
     },
     backgroundImage: {
         height:hp('100%'),
         width:wp('100%')
     },
-    pageheader:{
-        fontSize:hp('4%'),
-        color:'#4F45F0'
+    normalheader:{
+        marginTop:hp('10%'),
+        marginLeft:wp('10%'),
+        fontSize:fonts.navigationheader,
+        color:colors.black,
+    },
+    pagesubheader:{
+        marginTop:hp('1%'),
+        marginLeft:wp('10%'),
+        fontSize:fonts.normal,
+        color:colors.gray,
     },
     forgotPasswordText:{
         fontSize:font.normal,
-        color:colors.black
+        color:colors.primary
     },
     navigatorText:{
         fontSize:font.normal,
@@ -274,13 +457,8 @@ const styles = StyleSheet.create({
     },
     forgotPasswordContainer:{
         flexDirection:"row",
-        marginTop:hp('2%'),
-        width:wp('86%'),
+        width:wp('90%'),
         justifyContent:"space-between"
-    },
-    pagesubheader:{
-        marginTop:hp('2%'),
-        fontSize:hp('2.5%')
     },
     inputheader:{
         marginTop:hp("3%"),
@@ -290,14 +468,16 @@ const styles = StyleSheet.create({
     mobileInputContainer:{
         flexDirection:'row',
         backgroundColor:colors.white,
-        borderBottomWidth:hp("0.1%"),
         alignSelf:"center",
-        height:hp('6%'),
+        height:hp('20%'),
+        width:wp('80%')
+      
     },
     passwordInputContainer:{
         flexDirection:'row',
         alignItems:'center',
         backgroundColor:colors.white,
+        borderBottomColor:colors.primary,
         borderBottomWidth:hp("0.1%"),
         alignSelf:"center",
         height:hp('5%'),
@@ -317,14 +497,28 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignSelf:"center",
         backgroundColor:colors.primary,
-        height:hp('7%'),
-        width:wp('40%'),
+        marginHorizontal:wp('5%'),
+        height:hp('6%'),
+        width:wp('60%'),
         borderRadius:hp('1%'),
         marginTop:hp('5%'),
     },
     loginButtonText:{
         color:colors.white,
         fontSize:font.normal
+    },
+    modalButtonContainer:{
+        alignItems:'center',
+        justifyContent:"center",
+        alignSelf:"center",
+        backgroundColor:colors.primary,
+        height:hp('6%'),
+        width:wp('50%'),
+        borderRadius:hp('1%'),
+    },
+    modalButtonText:{
+        color:colors.white,
+        fontSize:font.subnormal
     },
     socialButtonContainer:{
         flexDirection:'row',

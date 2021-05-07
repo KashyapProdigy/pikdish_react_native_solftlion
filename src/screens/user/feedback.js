@@ -26,269 +26,14 @@ export default class Splash extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-          activeSections: [],
-          renderOBJ:{
-            resto:{
-              name:"Lakshmi Restaurant",
-              rating:"4.4",
-              time:"30 mins",
-              type:"both",
-              image:require('../../assets/image/welcome_restaurant_bg.png'),
-            },
-            categorys:[  
-                 {
-                  "id": "26576",
-                  "name": "Laxmi Fast Food",
-                  "date":"05/03/2019",
-                  "bill":"$500",
-                  "position": "0",
-                  "menu-items": [
-                    {
-                      "id": "94298",
-                      "name": "Crisp Touch Pizzas",
-                      "itemcount":"11 items",
-                      "position": 1,
-                      "description": "Tender, Spicy and Juicy. Original or Peri-Crusted",
-                      "images": [],
-                      "sub-items": [
-                        {
-                          "id": "224471",
-                          "name": "3 Chicken Wings",
-                          "position": 1,
-                          "price": "250.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Indian",
-                          "category_name": "Appeteasers",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        },
-                        {
-                          "id": "224472",
-                          "name": "3 Chicken Wings",
-                          "position": 1,
-                          "price": "250.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Indian",
-                          "category_name": "Appeteasers",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        },
-                        {
-                          "id": "224473",
-                          "name": "3 Chicken Wings",
-                          "position": 1,
-                          "price": "250.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Indian",
-                          "category_name": "Appeteasers",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        }
-                      ]
-                    },
-                    {
-                      "id": "94301",
-                      "name": "Soft touch Pizza",
-                      "position": 2,
-                      "description": "Chicken Livers Topped with PERi-PERi Sauce, Served with A Roll To Soak Up The Sauce",
-                      "images": [],
-                      "itemcount":"11 items",
-                      "sub-items": [
-                        {
-                          "id": "224479",
-                          "name": "Chicken Livers and Portuguese Roll",
-                          "position": 1,
-                          "price": "250.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Indian",
-                          "category_name": "Appeteasers",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        }
-                      ]
-                    },
-                  ]
-                },
-                {
-                  "id": "26582",
-                  "name": "Jio Food Mall",
-                  "date":"05/03/2025",
-                  "bill":"$500",
-                  "position": "0",
-                  "menu-items": [
-                    {
-                      "id": "94334",
-                      "name": "Grilled Cheese Sandwiches",
-                      "position": 8,
-                      "description": "",
-                      "itemcount":"11 items",
-                      "images": [],
-                      "sub-items": [
-                        {
-                          "id": "224522",
-                          "name": "Regular",
-                          "position": 1,
-                          "price": "190.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Fast Food",
-                          "category_name": "Fino sides",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        },
-                        {
-                          "id": "224525",
-                          "name": "Large",
-                          "position": 2,
-                          "price": "330.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Fast Food",
-                          "category_name": "Fino sides",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        }
-                      ]
-                    },
-                    {
-                      "id": "94337",
-                      "name": "Regular Sandwiches",
-                      "position": 9,
-                      "description": "",
-                      "images": [],
-                      "itemcount":"11 items",
-                      "sub-items": [
-                        {
-                          "id": "224528",
-                          "name": "Regular",
-                          "position": 1,
-                          "price": "190.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Fast Food",
-                          "category_name": "Fino sides",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        },
-                        {
-                          "id": "224531",
-                          "name": "Large",
-                          "position": 2,
-                          "price": "330.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Fast Food",
-                          "category_name": "Fino sides",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        }
-                      ]
-                    },
-                    {
-                      "id": "94399",
-                      "name": "Dessert Sandwiches",
-                      "position": 9,
-                      "description": "",
-                      "images": [],
-                      "itemcount":"11 items",
-                      "sub-items": [
-                        {
-                          "id": "123",
-                          "name": "Regular",
-                          "position": 1,
-                          "price": "190.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Fast Food",
-                          "category_name": "Fino sides",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        },
-                        {
-                          "id": "11",
-                          "name": "Large",
-                          "position": 2,
-                          "price": "330.00",
-                          "consumable": "1:1",
-                          "cuisine_name": "Fast Food",
-                          "category_name": "Fino sides",
-                          "discount": {
-                            "type": "",
-                            "amount": "0.00"
-                          },
-                          "tags": []
-                        }
-                      ]
-                    }
-                  ]
-                },     
-            ],
-            recommended:[
-              {
-                  id:1,
-                  desc:"Jodhpur Famous Maggi",
-                  type:"veg",
-                  name:"Ala cater &value mealsasdasdsad sadsad sadsad sadsa",
-                  price:"$200",
-                  image:require('../../assets/image/offer_tab5.png'),            
-                  customizable:true,
-              },
-              {
-                  id:2,
-                  desc:"Jodhpur Famous Maggi",
-                  type:"veg",
-                  name:"Ala cater &value meals",
-                  price:"$200",
-                  image:require('../../assets/image/offer_tab3.png'),            
-                  customizable:true,
-              },
-              {
-                  id:3,
-                  desc:"Jodhpur Famous Maggi",
-                  type:"veg",
-                  name:"Ala cater &value meals",
-                  price:"$200",
-                  image:require('../../assets/image/offer_tab1.png'),            
-                  customizable:true,
-              },
-              {
-                  id:3,
-                  desc:"Jodhpur Famous Maggi",
-                  type:"veg",
-                  name:"Ala cater &value meals",
-                  price:"$200",
-                  image:require('../../assets/image/offer_tab2.png'),            
-                  customizable:true,
-              },
-          ]
-        },
+          feedback:"",
           appLoading:false,
       };
 
       this.onBackClick = this.onBackClick.bind(this);
-      this.onRepeatOrderClick = this.onRepeatOrderClick.bind(this);
+      this.onSendClick = this.onSendClick.bind(this);
+
+  
     }
 
     componentDidMount(){}
@@ -297,59 +42,11 @@ export default class Splash extends React.Component {
         this.props.navigation.goBack();
     }
 
-    onRepeatOrderClick(){
-        this.props.navigation.goBack();
-    }
+    onSendClick(){
+      this.props.navigation.goBack();
+  }
 
-    _renderHeader = section => {
-        return (
-          <View style={{paddingTop:hp('4%'),paddingBottom:hp('2%')}}>
-                <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>{section.name}</Text>
-                <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",width:wp('90%'),alignSelf:"center"}}>
-                    <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{section.itemcount}</Text>
-                    <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>$200</Text>
-                    <Image source={require('../../assets/icon/drop_down_black.png')} style={{height:hp('2%'),width:hp('2%'),bottom:hp('2%')}} resizeMode='contain' />
-                    </View>
-          </View>
-        );
-      };
-
-      _renderContent = section => {
-        console.log("i am here");
-            return( 
-            <View>
-              <FlatList
-              numColumns={1}
-              showsVerticalScrollIndicator={false}
-              style={{}}
-              contentContainerStyle={{}}
-              data={section["sub-items"]}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) =>                     
-                      <View style={{marginTop:hp('2%'),height:hp('6%'),width:wp('90%'),alignSelf:"center",alignItems:"center",flexDirection:"row"}}>
-                          <View style={{width:wp('8%'),height:hp('6%'),alignItems:"center"}}>
-                          <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%'),marginTop:hp('0.5%')}} resizeMode='contain' />
-                          </View>
-
-                          <View style={{width:wp('57%'),height:hp('6%'),paddingRight:wp('5%')}}>
-                          <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>{item.category_name}</Text>  
-                          <Text style={{fontSize:fonts.normal1,color:colors.gray}} numberOfLines={1}>1 Plate</Text>  
-                          </View>
-
-                          <View style={{width:wp('25%'),height:hp('6%'),alignItems:"flex-end",justifyContent:"flex-start",}}>
-                            <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>$24</Text>
-                          </View>
-                      </View>
-                  }
-             />
-                <TouchableOpacity onPress={()=>{this.onRepeatOrderClick()}}><Text style={{fontSize:fonts.normal,color:colors.primary,alignSelf:"flex-end",}} numberOfLines={1}>Repeat Order</Text></TouchableOpacity>
-             </View>
-                  )
-      };
-
-      _updateSections = activeSections => {
-        this.setState({ activeSections });
-      };
+    
 
     render () {
       return (
@@ -375,11 +72,34 @@ export default class Splash extends React.Component {
         <Image source={require('../../assets/image/splash_logo.png')} style={{alignSelf:"center",height:hp('15%'),width:wp('90%')}} resizeMode='contain'></Image>
         </View>
 
-        <View style={{alignSelf:"center",height:hp('15%'),width:wp('90%'),justifyContent:"center",alignItems:"center"}}>
-            
+        <View style={{height:hp('0.1%'),width:wp('90%'),alignSelf:"center",borderColor:colors.gray,borderStyle: 'dashed',borderWidth:hp('0.10%'),borderRadius: 1,}}>            
         </View>
 
+        <View style={{alignSelf:"center",height:hp('15%'),width:wp('90%'),justifyContent:"flex-end"}}>
+        <Text style={{fontSize:fonts.pageheader,color:colors.black}} numberOfLines={1}>Feedback</Text>
+        <Text style={{fontSize:fonts.normal1,color:colors.gray}} numberOfLines={1}>Provide your feedback to PIKDISH Team</Text>
+        </View>
 
+        <View style={{alignSelf:"center",height:hp('25%'),width:wp('90%'),backgroundColor:colors.white,borderRadius:hp('2%'),marginTop:hp('1%'),alignItems:"center",justifyContent:"center"}}>
+            <View style={styles.mobileInputContainer}>
+              <TextInput style = {styles.iconInputField}
+                  ref={(input) => { this.feedbackInputRef = input }}
+                  underlineColorAndroid = "transparent"
+                  placeholder = "Enter Feedback..."
+                  placeholderTextColor ={colors.gray}
+                  autoCapitalize = "none"
+                  multiline={true}
+                  numberOfLines={4}
+                  value={this.state.feedback}
+                  onChangeText={(feedback) => this.setState({feedback})}  />
+            </View>
+        </View>
+
+        <TouchableOpacity onPress={()=>{
+                this.onSendClick();
+            }}  style={styles.loginButtonContainer}>
+                <Text style={styles.loginButtonText}>Send</Text>
+        </TouchableOpacity>
 
         </View>
 
@@ -480,10 +200,10 @@ const styles = StyleSheet.create({
     mobileInputContainer:{
         flexDirection:'row',
         backgroundColor:colors.white,
-        borderBottomColor:colors.primary,
-        borderBottomWidth:hp("0.1%"),
         alignSelf:"center",
-        height:hp('6%'),
+        height:hp('20%'),
+        width:wp('80%')
+      
     },
     passwordInputContainer:{
         flexDirection:'row',
@@ -510,14 +230,14 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         backgroundColor:colors.primary,
         marginHorizontal:wp('5%'),
-        height:hp('5%'),
-        width:wp('25%'),
+        height:hp('6%'),
+        width:wp('60%'),
         borderRadius:hp('1%'),
-        marginTop:hp('2%'),
+        marginTop:hp('5%'),
     },
     loginButtonText:{
         color:colors.white,
-        fontSize:font.subnormal
+        fontSize:font.normal
     },
     modalButtonContainer:{
         alignItems:'center',

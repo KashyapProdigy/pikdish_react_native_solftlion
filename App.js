@@ -25,6 +25,8 @@
  import EventHistory from './src/screens/user/eventhistory';
  import Feedback from './src/screens/user/feedback';
  import ContactUs from './src/screens/user/contactus';
+ import Dashboard from './src/screens/user/dashboard';
+ import Favourite from './src/screens/user/favourite';
 
 
 
@@ -61,6 +63,8 @@
          <RootStack.Screen name="EventHistory" component={EventHistory} />
          <RootStack.Screen name="Feedback" component={Feedback} />
          <RootStack.Screen name="ContactUs" component={ContactUs} />
+         <RootStack.Screen name="Dashboard" component={Dashboard} />
+         <RootStack.Screen name="Favourite" component={Favourite} />
 
 
 

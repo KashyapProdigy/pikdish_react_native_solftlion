@@ -93,7 +93,6 @@ export default class Splash extends React.Component {
       };
 
       this.onBackClick = this.onBackClick.bind(this);
-      this.onEventClick = this.onEventClick.bind(this);
 
     }
 
@@ -103,9 +102,7 @@ export default class Splash extends React.Component {
         this.props.navigation.goBack();
     }
 
-    onEventClick(){
-        this.props.navigation.navigate('EventPage');
-    }
+
 
 
     render () {
@@ -136,7 +133,7 @@ export default class Splash extends React.Component {
           data={this.state.renderTerms}
           keyExtractor={item => item.id}
           renderItem={({ item }) =>                     
-                  <TouchableOpacity onPress={this.onEventClick} style={{marginTop:hp('2%'),alignSelf:"center",width:wp('100%'),paddingHorizontal:wp('6%'),paddingVertical:hp('2%'), backgroundColor:colors.white }}>
+                  <View  style={{marginTop:hp('2%'),alignSelf:"center",width:wp('100%'),paddingHorizontal:wp('6%'),paddingVertical:hp('2%'), backgroundColor:colors.white }}>
                         <View style={{}}>
                         <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Name : </Text>
                         </View>
@@ -147,7 +144,7 @@ export default class Splash extends React.Component {
 
                         <View style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row"}}>
                         <View style={{}}>
-                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Ticket price : </Text>
+                        <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>No of Tickets : </Text>
                         </View>
                         <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
                         <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>Date & Time : </Text>
@@ -160,7 +157,7 @@ export default class Splash extends React.Component {
                         <View style={{}}>
                         <Image source={require('../../assets/image/event_list.png')} style={{height:hp('20%'),width:wp('88%'),borderRadius:hp('2%'),marginTop:hp('2%')}} resizeMode='cover' />
                         </View>
-                  </TouchableOpacity>
+                  </View>
                   
               }
         />

@@ -465,7 +465,6 @@ export default class Splash extends React.Component {
       this.onBackClick = this.onBackClick.bind(this);
       this.onRestaurantClick = this.onRestaurantClick.bind(this);
       this.onRestaurantFavClick = this.onRestaurantFavClick.bind(this);
-      this.onFoodCourtFavClick = this.onFoodCourtFavClick.bind(this);
       this.onSearchIconCLick = this.onSearchIconCLick.bind(this);
       this.onSearchModalBackClick = this.onSearchModalBackClick.bind(this);
       this.onFilterIconClick = this.onFilterIconClick.bind(this);
@@ -491,9 +490,7 @@ export default class Splash extends React.Component {
 
     }
 
-    onFoodCourtFavClick(){
 
-    }
 
     _renderHeader = section => {
         return (
@@ -508,7 +505,6 @@ export default class Splash extends React.Component {
       };
 
       _renderContent = section => {
-        console.log("i am here");
             return( 
 
               <FlatList
@@ -671,38 +667,15 @@ export default class Splash extends React.Component {
             </TouchableOpacity>
         </View>
         <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",paddingHorizontal:wp('4%'),height:hp('7%'),width:wp('30%')}}>
-            <TouchableOpacity onPress={this.onFoodCourtFavClick}><Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('3%'),width:hp('3%'),marginHorizontal:wp('3%')}} resizeMode='contain' /></TouchableOpacity>
             <TouchableOpacity onPress={this.onSearchIconCLick}><Image source={require('../../assets/icon/search_gray.png')} style={{height:hp('3%'),width:hp('3%')}} resizeMode='contain' /></TouchableOpacity>
         </View>
         </View>
 
         <View style={styles.subcontainer2}>
-            <View style={{alignSelf:"center",flexDirection:"row",height:hp('10%'),width:wp('100%'),alignItems:"center",justifyContent:"center",backgroundColor:"white"}}>
-                <View style={{height:hp('10%'),width:wp('90%'),justifyContent:"center",alignItems:"center",alignSelf:"center"}}>
-                      
-                      <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.primary,borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),marginHorizontal:wp('6%')}} numberOfLines={1}>Jio Food Court</Text>
-                     
-                      <View style={{flexDirection:"row",marginTop:hp('0.5%')}}>
-                      <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{this.state.renderOBJ.resto.rating}</Text>
-                      <Text style={{fontSize:fonts.subnormal,color:colors.gray,marginLeft:wp('1%')}} numberOfLines={1}> | 12 Outlets </Text>
-                      </View>   
+            <View style={{alignSelf:"center",flexDirection:"row",height:hp('5%'),width:wp('100%'),alignItems:"center",justifyContent:"center",backgroundColor:"white"}}>
+                <View style={{height:hp('5%'),width:wp('90%'),justifyContent:"center",alignItems:"center",alignSelf:"center"}}>
+                      <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.primary}} >My Favourite</Text>
                 </View>
-            </View>
-
-            <View style={{alignSelf:"center",flexDirection:"row",height:hp('25%'),width:wp('100%'),alignItems:"center",justifyContent:"center",backgroundColor:colors.off_white}}>
-            <FlatList
-              horizontal={true}
-              showsVerticalScrollIndicator={false}
-              style={{}}
-              contentContainerStyle={{paddingRight:wp('3%')}}
-              data={this.state.renderOBJ.recommended}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) =>                     
-                      <View style={{marginTop:hp('2%'),height:hp('23%'),width:hp('31%'),marginLeft:wp('3%'),alignSelf:"center",alignItems:"center",flexDirection:"row"}}>
-                          <Image source={item.image} style={{height:hp('22%'),width:hp('30%'),borderRadius:hp('1%')}} resizeMode='cover' />
-                      </View>
-                  }
-             />
             </View>
 
             <View style={{height:hp('5%'),width:wp('90%'),alignSelf:"center",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
@@ -726,7 +699,7 @@ export default class Splash extends React.Component {
 
             <FlatList
               showsVerticalScrollIndicator={false}
-              style={{height:hp('43%'),width:wp('98%'),alignSelf:"center",}}
+              style={{height:hp('73%'),width:wp('98%'),alignSelf:"center",}}
               contentContainerStyle={{paddingBottom:hp('3%')}}
               data={this.state.renderTerms}
               keyExtractor={item => item.id}

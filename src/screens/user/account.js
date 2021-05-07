@@ -61,6 +61,7 @@ export default class Splash extends React.Component {
     }
 
     onFavouriteRestaurantClick(){
+        this.props.navigation.navigate('Favourite');
     }
 
     onYourEventClick(){
@@ -74,6 +75,7 @@ export default class Splash extends React.Component {
     }
 
     onDashboardClick(){
+        this.props.navigation.navigate('Dashboard');
     }
 
     onSendFeedbackClick(){
@@ -166,7 +168,7 @@ export default class Splash extends React.Component {
                 <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
                 <Image source={require('../../assets/icon/account_favourite.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
                 </View>            
-                <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Favourite Restaurant</Text>
+                <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Favourite Restaurant </Text>
                 </View>
                 <View>
                 <Image source={require('../../assets/icon/nav_right.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
