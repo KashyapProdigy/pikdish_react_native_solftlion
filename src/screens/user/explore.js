@@ -22,10 +22,9 @@ import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
 // import AppLoader from '../component/loader';
 import DropdownAlert from 'react-native-dropdownalert';
-import MaterialTabs from 'react-native-material-tabs';
 import Accordion from 'react-native-collapsible/Accordion';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { TabView, SceneMap , TabBar } from 'react-native-tab-view';
 
 export default class Splash extends React.Component {
     constructor (props) {
@@ -391,6 +390,11 @@ export default class Splash extends React.Component {
           ]
           },
           activeSections: [],
+          tabINDEX:0,
+          routes:[
+            { key: 'first', title: 'Restaurants' },
+            { key: 'second', title: 'Dishes' },
+          ],
       };
 
 
@@ -472,6 +476,107 @@ export default class Splash extends React.Component {
       };
 
     render () {
+
+      const FirstRoute = () => (
+        <View style={{ height:hp('86%'),width:wp('100%'), backgroundColor:colors.off_white }}>
+              <FlatList
+              numColumns={1}
+              showsVerticalScrollIndicator={false}
+              style={{height:hp('86'),width:wp('100%')}}
+              contentContainerStyle={{ paddingBottom: hp('10%')}}
+              data={this.state.renderTerms}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) =>                     
+              <TouchableOpacity onPress={()=>{this.onRestaurantClcik()}} style={{marginTop:hp('1%'),alignSelf:"center",alignItems:"center",flexDirection:"row",height:hp('12%'),width:wp('96%'),borderRadius:hp('2%'),backgroundColor:colors.white}}>
+              <View style={{height:hp('12%'),width:wp('25%'),alignItems:"center",justifyContent:"center"}}>
+                  <Image source={item.image} style={{height:hp('9%'),width:wp('20%'),borderRadius:hp('0.5%')}} resizeMode='stretch'></Image>
+              </View>
+              <View style={{height:hp('12%'),width:wp('47%'),justifyContent:"center"}}>
+                  <View style={{}}>
+                    <View style={{flexDirection:"row",alignItems:"center",paddingRight:wp('1%')}} >
+                      <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                        <Text style={{fontSize:fonts.normal,color:colors.black,marginLeft:wp('1%')}} numberOfLines={1}>{item.name}</Text>
+                      </View>
+                  <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>{item.coupon_name}</Text>
+                  <View style={{borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),width:wp('37%')}}>
+                  </View>
+                  </View>
+                  <View style={{flexDirection:"row"}}>
+                  <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.rating}</Text>
+                  <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>|{item.time}|</Text>
+                  <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.coupon_type}</Text>
+                  </View>
+                  
+              </View>
+              <View style={{height:hp('12%'),width:wp('24%'),alignItems:"center",justifyContent:"center"}}>
+                  <View style={{flexDirection:"row",marginBottom:hp('1%')}}>
+                  <Image source={require('../../assets/icon/discount_primary.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                  <Text style={{fontSize:fonts.subnormal,color:colors.primary,marginLeft:wp('1%')}} numberOfLines={1}>{item.coupon_rate}</Text>
+                  </View>
+                  <TouchableOpacity onPress={()=>{this.onRestoHeartClick()}} style={{height:hp('4%'),width:hp('4%'),borderRadius:hp('4%')/2,elevation:9,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
+                  <Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                  </TouchableOpacity>
+              </View>
+            </TouchableOpacity>             
+                  }
+            />
+        </View>
+      );
+
+      const SecondRoute = () => (
+        <View style={{ height:hp('86%'),width:wp('100%'), backgroundColor:colors.off_white }}>
+              <ScrollView 
+              nestedScrollEnabled={true}
+              style={{height:hp('86'),width:wp('100%')}}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: hp('20%')}}
+              >
+              {
+                  this.state.renderOBJ.categorys.map((item)=>{
+                          return( 
+                                  <View style={{marginVertical:hp('3%'),width:wp('90%'),alignSelf:"center",}}>
+                                      <View style={{flexDirection:"row",alignItems:"center"}}>
+                                          <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /> 
+                                          <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black,marginLeft:wp('2%')}} numberOfLines={1}>{item.name}</Text>
+                                      </View>  
+                                          <Accordion
+                                              sections={item['menu-items']}
+                                              activeSections={this.state.activeSections}
+                                              keyExtractor={item => item.id}
+                                              renderHeader={this._renderHeader}
+                                              renderContent={this._renderContent}
+                                              onChange={this._updateSections}
+                                              underlayColor={"#fff"}                  
+                                              containerStyle={{ backgroundColor: "transparent" }}
+                                          />  
+                                  </View>
+                          )
+                      
+                  })
+              }
+              </ScrollView>
+        </View>
+      );
+
+
+      const renderScene = SceneMap({
+        first: FirstRoute,
+        second: SecondRoute,
+      });
+
+      const renderTabBar = props => (
+        <TabBar
+          {...props}
+          activeColor={colors.black}
+          inactiveColor={colors.black}
+          pressColor={colors.primary}
+          indicatorStyle={{ backgroundColor:colors.primary }}
+          labelStyle={{color:colors.black,fontSize:fonts.normal,fontWeight:"bold"}}
+          style={{ backgroundColor:colors.off_white ,height:hp('7%'),justifyContent:"center",elevation:0}}
+        />
+      );
+
       return (
        <View style={styles.maincontainer}>
         <StatusBar
@@ -499,97 +604,14 @@ export default class Splash extends React.Component {
         </View>
 
         <View style={{height:hp('93%'),width:wp('100%')}}>
-        <MaterialTabs
-        items={[
-                <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",borderBottomColor:this.state.selectedTab==0?colors.primary:colors.off_white,borderBottomWidth:hp('0.2%')}}><Text style={{fontSize:fonts.normalheader,padding:hp('1%')}} numberOfLines={1}>Restaurants</Text></View>
-                ,<View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",borderBottomColor:this.state.selectedTab==1?colors.primary:colors.off_white,borderBottomWidth:hp('0.2%')}}><Text style={{fontSize:fonts.normalheader}} numberOfLines={1}>Dishes</Text></View>
-        ,]}
-        selectedIndex={this.state.selectedTab}
-        onChange={(index)=>{this.setState({selectedTab:index})}}
-        barColor={colors.off_white}
-        indicatorColor={colors.off_white}
-        activeTextColor="black"
-        inactiveTextColor="black"
-        barHeight={hp('7%')}
-        textStyle={{fontSize:fonts.normal}}
-      />
-      {
-          this.state.selectedTab == 0 ?
-          <FlatList
-          numColumns={1}
-          showsVerticalScrollIndicator={false}
-          style={{height:hp('86'),width:wp('100%')}}
-          contentContainerStyle={{ paddingBottom: hp('10%')}}
-          data={this.state.renderTerms}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) =>                     
-          <TouchableOpacity onPress={()=>{this.onRestaurantClcik()}} style={{marginTop:hp('1%'),alignSelf:"center",alignItems:"center",flexDirection:"row",height:hp('12%'),width:wp('96%'),borderRadius:hp('2%'),backgroundColor:colors.white}}>
-          <View style={{height:hp('12%'),width:wp('25%'),alignItems:"center",justifyContent:"center"}}>
-              <Image source={item.image} style={{height:hp('9%'),width:wp('20%'),borderRadius:hp('0.5%')}} resizeMode='stretch'></Image>
-          </View>
-          <View style={{height:hp('12%'),width:wp('47%'),justifyContent:"center"}}>
-              <View style={{}}>
-                <View style={{flexDirection:"row",alignItems:"center",paddingRight:wp('1%')}} >
-                  <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-                    <Text style={{fontSize:fonts.normal,color:colors.black,marginLeft:wp('1%')}} numberOfLines={1}>{item.name}</Text>
-                  </View>
-              <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>{item.coupon_name}</Text>
-              <View style={{borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),width:wp('37%')}}>
-              </View>
-              </View>
-              <View style={{flexDirection:"row"}}>
-              <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.rating}</Text>
-              <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>|{item.time}|</Text>
-              <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.coupon_type}</Text>
-              </View>
-              
-          </View>
-          <View style={{height:hp('12%'),width:wp('24%'),alignItems:"center",justifyContent:"center"}}>
-              <View style={{flexDirection:"row",marginBottom:hp('1%')}}>
-              <Image source={require('../../assets/icon/discount_primary.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-              <Text style={{fontSize:fonts.subnormal,color:colors.primary,marginLeft:wp('1%')}} numberOfLines={1}>{item.coupon_rate}</Text>
-              </View>
-              <TouchableOpacity onPress={()=>{this.onRestoHeartClick()}} style={{height:hp('4%'),width:hp('4%'),borderRadius:hp('4%')/2,elevation:9,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
-              <Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-              </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-                  
-              }
-        />
-        :
-        <ScrollView 
-        nestedScrollEnabled={true}
-        style={{height:hp('86'),width:wp('100%')}}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: hp('20%')}}
-        >
-        {
-            this.state.renderOBJ.categorys.map((item)=>{
-                    return( 
-                            <View style={{marginVertical:hp('3%'),width:wp('90%'),alignSelf:"center",}}>
-                                <View style={{flexDirection:"row",alignItems:"center"}}>
-                                    <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /> 
-                                    <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black,marginLeft:wp('2%')}} numberOfLines={1}>{item.name}</Text>
-                                </View>  
-                                    <Accordion
-                                        sections={item['menu-items']}
-                                        activeSections={this.state.activeSections}
-                                        keyExtractor={item => item.id}
-                                        renderHeader={this._renderHeader}
-                                        renderContent={this._renderContent}
-                                        onChange={this._updateSections}
-                                        underlayColor={"#fff"}                  
-                                        containerStyle={{ backgroundColor: "transparent" }}
-                                    />  
-                            </View>
-                    )
-                
-            })
-        }
-        </ScrollView>
-      }
+        <TabView
+            renderTabBar={renderTabBar}
+            navigationState={{ index:this.state.tabINDEX, routes:this.state.routes }}
+            renderScene={renderScene}
+            onIndexChange={(i)=>{this.setState({tabINDEX:i})}}
+            initialLayout={{height:hp('93%'),width:wp('100%'),}}    
+            />
+    
         </View>
 
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />

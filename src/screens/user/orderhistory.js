@@ -298,7 +298,7 @@ export default class Splash extends React.Component {
     }
 
     onRepeatOrderClick(){
-        this.props.navigation.goBack();
+        this.props.navigation.navigate('Cart');
     }
 
     _renderHeader = section => {

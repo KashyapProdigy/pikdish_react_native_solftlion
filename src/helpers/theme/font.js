@@ -1,6 +1,7 @@
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default font = {
+    mini:hp('1%'),
     subnormal2:hp('1.3%'),
     subnormal:hp('1.5%'),
     normal1:hp('1.75%'),

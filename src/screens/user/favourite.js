@@ -667,6 +667,7 @@ export default class Splash extends React.Component {
             </TouchableOpacity>
         </View>
         <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",paddingHorizontal:wp('4%'),height:hp('7%'),width:wp('30%')}}>
+            <View></View>
             <TouchableOpacity onPress={this.onSearchIconCLick}><Image source={require('../../assets/icon/search_gray.png')} style={{height:hp('3%'),width:hp('3%')}} resizeMode='contain' /></TouchableOpacity>
         </View>
         </View>

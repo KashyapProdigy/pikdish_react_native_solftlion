@@ -99,7 +99,7 @@ export default class Splash extends React.Component {
 
     onSignOutClick(){
         this.props.navigation.popToTop(),
-        this.props.navigation.replace("Login")
+        this.props.navigation.replace("Login");
     }
 
  

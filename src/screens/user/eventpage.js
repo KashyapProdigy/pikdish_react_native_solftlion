@@ -126,12 +126,10 @@ export default class Splash extends React.Component {
            barStyle = "dark-content"
          />
         <View style={styles.subcontainer1}>
-        <View style={styles.subcontainertextcontainer}>
-            <TouchableOpacity onPress={this.onBackClick}>
+        <TouchableOpacity onPress={this.onBackClick} style={styles.subcontainertextcontainer}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('2.5%'),width:wp('2.5%')}} resizeMode='contain' />
-            </TouchableOpacity>
-            <Text style={{fontSize:fonts.pageheader,color:colors.black,marginLeft:wp('3%')}} numberOfLines={1}>Event Name</Text>
-        </View>
+            <Text style={{fontSize:fonts.normalheader,color:colors.black,marginLeft:wp('3%')}} numberOfLines={1}>Event Name</Text>
+        </TouchableOpacity>
         </View>
 
         <View style={styles.subcontainer2}>

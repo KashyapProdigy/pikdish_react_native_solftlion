@@ -20,7 +20,6 @@ import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
 // import AppLoader from '../component/loader';
 import DropdownAlert from 'react-native-dropdownalert';
-import Accordion from 'react-native-collapsible/Accordion';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Modal from 'react-native-modal';
@@ -285,6 +284,108 @@ export default class Splash extends React.Component {
                 },
             ]
           },
+             renderTerms:[
+            {
+                id:1,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab1.png'),
+            },
+            {
+                id:2,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"Dine In,Pre-order",
+                image:require('../../assets/image/offer_tab2.png'),
+            },
+            {
+                id:3,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab3.png'),
+            },
+            {
+                id:4,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab4.png'),
+            },
+            {
+                id:5,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab5.png'),
+            },
+            {
+                id:6,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab1.png'),
+            },
+            {
+                id:7,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab3.png'),
+            },
+            {
+                id:8,
+                name:"Jodhpur Dabbawaladsafdsafdsafdsafdsa",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab3.png'),
+            },
+            {
+                id:9,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                coupon_rate:"24% off",
+                time:"30 mins",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab5.png'),
+            },
+            {
+                id:10,
+                name:"Jodhpur Dabbawala",
+                coupon_name:"Use coupon PIKDISH",
+                time:"30 mins",
+                coupon_rate:"24% off",
+                rating:"4.4",
+                coupon_type:"On All Order",
+                image:require('../../assets/image/offer_tab1.png'),
+            },
+          ],
           vegswitch:false,
           appLoading:false,
           SearchModalVisible: false,
@@ -359,14 +460,12 @@ export default class Splash extends React.Component {
         },
     ],
 
-
       };
 
       this.onBackClick = this.onBackClick.bind(this);
-      this.onViewCartClick = this.onViewCartClick.bind(this);
- 
+      this.onRestaurantClick = this.onRestaurantClick.bind(this);
+      this.onRestaurantFavClick = this.onRestaurantFavClick.bind(this);
       this.onSearchIconCLick = this.onSearchIconCLick.bind(this);
-      this.onFavIconCLick = this.onFavIconCLick.bind(this);
       this.onSearchModalBackClick = this.onSearchModalBackClick.bind(this);
       this.onFilterIconClick = this.onFilterIconClick.bind(this);
       this.onCloseFilterModalIconClick = this.onCloseFilterModalIconClick.bind(this);
@@ -375,22 +474,22 @@ export default class Splash extends React.Component {
       this.checkThisBoxFilter = this.checkThisBoxFilter.bind(this);
       this.onCleanFilterModalClick = this.onCleanFilterModalClick.bind(this);
       this.onApplyFilterModalClick = this.onApplyFilterModalClick.bind(this);
-      this.onMenuClick = this.onMenuClick.bind(this);
-
-      
-
     }
 
     componentDidMount(){}
 
+    onRestaurantClick(){
+      this.props.navigation.navigate('RestoFoodList');
+    }
 
     onBackClick(){
         this.props.navigation.goBack();
     }
 
-    onViewCartClick(){
-        this.props.navigation.navigate('Cart');
+    onRestaurantFavClick(){
+
     }
+
 
 
     _renderHeader = section => {
@@ -435,7 +534,7 @@ export default class Splash extends React.Component {
                       </View>
                   }
              />
-                  )
+                  )    
       };
 
       _updateSections = activeSections => {
@@ -444,23 +543,6 @@ export default class Splash extends React.Component {
 
       onSearchIconCLick(){
         this.setState({SearchModalVisible:true})
-      }
-
-      onFavIconCLick(){
-      }
-      onMenuClick(){
-      }
-
-      onSearchModalBackClick(){
-        this.setState({SearchModalVisible:false,searchstring:""})
-      }
-  
-      onFilterIconClick(){
-        this.setState({FilterModalVisible:true})
-      }
-  
-      onCloseFilterModalIconClick(){
-        this.setState({FilterModalVisible:false})
       }
 
       onCleanFilterModalClick(){
@@ -539,6 +621,18 @@ export default class Splash extends React.Component {
         this.setState({FilterModalVisible:false})
       }
 
+      onSearchModalBackClick(){
+        this.setState({SearchModalVisible:false,searchstring:""})
+      }
+  
+      onFilterIconClick(){
+        this.setState({FilterModalVisible:true})
+      }
+  
+      onCloseFilterModalIconClick(){
+        this.setState({FilterModalVisible:false})
+      }
+
       checkThisBoxSearch=(itemID)=>{
         let list=this.state.sortlist
         list[itemID].checked=!list[itemID].checked
@@ -557,10 +651,9 @@ export default class Splash extends React.Component {
         this.setState({filterlist:list})
       }
 
+  
+
     render () {
-
-
-
       return (
        <View style={styles.maincontainer}>
         <StatusBar
@@ -574,42 +667,14 @@ export default class Splash extends React.Component {
             </TouchableOpacity>
         </View>
         <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",paddingHorizontal:wp('4%'),height:hp('7%'),width:wp('30%')}}>
-            <TouchableOpacity onPress={this.onFavIconCLick} ><Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('3%'),width:hp('3%'),marginHorizontal:wp('3%')}} resizeMode='contain' /></TouchableOpacity>
+            <View></View>
             <TouchableOpacity onPress={this.onSearchIconCLick}><Image source={require('../../assets/icon/search_gray.png')} style={{height:hp('3%'),width:hp('3%')}} resizeMode='contain' /></TouchableOpacity>
         </View>
         </View>
 
-       <ScrollView 
-            nestedScrollEnabled={true}
-            style={styles.subcontainer2}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: hp('20%')}}
-        >
+        <View style={styles.subcontainer2}>
 
-                    <View style={{marginTop:hp('2%'),alignSelf:"center",flexDirection:"row",height:hp('12%'),width:wp('90%')}}>
-                      <View style={{height:hp('12%'),width:wp('30%')}}>
-                           <Image source={this.state.renderOBJ.resto.image} style={{height:hp('12%'),width:wp('30%')}} resizeMode='cover'></Image>
-                      </View>
-                      <View style={{height:hp('12%'),width:wp('60%'),justifyContent:"center"}}>
-                           <View style={{marginLeft:wp('5%')}}>
-                           <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black}} numberOfLines={1}>{this.state.renderOBJ.resto.name}</Text>
-                           <View style={{borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),width:wp('37%'),marginTop:hp('1%')}}>
-                           </View>
-                           </View>
-                           <View style={{flexDirection:"row",marginLeft:wp('5%'),marginTop:hp('1%')}}>
-                           <Text style={{fontSize:fonts.subnormal,color:colors.gray}} numberOfLines={1}>{this.state.renderOBJ.resto.rating}</Text>
-                           <Text style={{fontSize:fonts.subnormal,color:colors.gray,marginLeft:wp('1%')}} numberOfLines={1}> | {this.state.renderOBJ.resto.time} | </Text>
-                           <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-                           <Image source={require('../../assets/icon/non_veg_icon.png')} style={{height:hp('2%'),width:hp('2%'),marginLeft:hp('1%')}} resizeMode='contain' />
-                           </View>   
-                      </View>
-                  </View>
-
-                  <View style={{marginTop:hp('2%'),backgroundColor:colors.gray,alignSelf:"center",height:hp('0.1%'),width:wp('90%'),borderBottomWidth:hp('0.1%')}}></View>
-
-
-                  <View style={{height:hp('5%'),width:wp('90%'),alignSelf:"center",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+            <View style={{height:hp('5%'),width:wp('90%'),alignSelf:"center",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
                   <ToggleSwitch
 
                     isOn={this.state.vegswitch}
@@ -626,92 +691,51 @@ export default class Splash extends React.Component {
                     <Text style={{fontSize:fonts.normal1,color:colors.gray,marginHorizontal:wp('1.5%')}}>Sort | Filter</Text>
                     </TouchableOpacity>
 
-                    </View>
+            </View>
 
-                  <View style={{marginTop:hp('2%'),width:wp('90%'),alignSelf:"center",alignItems:"flex-start",justifyContent:"center"}}>
-                  <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black}}>Recommended</Text>
-                  </View>
-        
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              style={{height:hp('78%'),width:wp('98%'),alignSelf:"center",}}
+              contentContainerStyle={{paddingBottom:hp('3%')}}
+              data={this.state.renderTerms}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) =>                     
+                  <TouchableOpacity  onPress={this.onRestaurantClick} style={{marginTop:hp('2%'),alignSelf:"center",alignItems:"center",flexDirection:"row",height:hp('12%'),width:wp('96%'),borderRadius:hp('2%'),backgroundColor:colors.white}}>
+                      <View style={{height:hp('12%'),width:wp('25%'),alignItems:"center",justifyContent:"center"}}>
+                          <Image source={item.image} style={{height:hp('9%'),width:wp('20%'),borderRadius:hp('0.5%')}} resizeMode='stretch'></Image>
+                      </View>
+                      <View style={{height:hp('12%'),width:wp('47%'),justifyContent:"center"}}>
+                          <View style={{}}>
+                            <View style={{flexDirection:"row",alignItems:"center",paddingRight:wp('1%')}} >
+                              <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                                <Text style={{fontSize:fonts.normal,color:colors.black,marginLeft:wp('1%')}} numberOfLines={1}>{item.name}</Text>
+                              </View>
+                          <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>{item.coupon_name}</Text>
+                          <View style={{borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),width:wp('37%')}}>
+                          </View>
+                          </View>
+                          <View style={{flexDirection:"row"}}>
+                          <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.rating}</Text>
+                          <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>|{item.time}|</Text>
+                          <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.coupon_type}</Text>
+                          </View>
+                          
+                      </View>
+                      <View style={{height:hp('12%'),width:wp('24%'),alignItems:"center",justifyContent:"center"}}>
+                          <View style={{flexDirection:"row",marginBottom:hp('1%')}}>
+                          <Image source={require('../../assets/icon/discount_primary.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                          <Text style={{fontSize:fonts.subnormal,color:colors.primary,marginLeft:wp('1%')}} numberOfLines={1}>{item.coupon_rate}</Text>
+                          </View>
+                          <TouchableOpacity onPress={this.onRestaurantFavClick} style={{height:hp('4%'),width:hp('4%'),borderRadius:hp('4%')/2,elevation:9,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
+                          <Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                          </TouchableOpacity>
+                      </View>
+                  </TouchableOpacity>
+                  }
+             />
 
-                  <ScrollView 
-                        horizontal={true}
-                        nestedScrollEnabled={true}
-                        style={{height:hp('32%'),width:wp('100%')}}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingRight: wp('5%')}}
-                    >
-
-                            {
-                                this.state.renderOBJ.recommended.map((item)=>{
-                                    return(
-                                        <View style={{marginVertical:hp('2%'),height:hp('30%'),width:wp('35%'),marginHorizontal:wp('7%')}}>
-                                            <Image source={item.image} style={{height:hp('18%'),width:wp('35%')}} resizeMode='cover'></Image>
-                                            <View style={{marginTop:hp('1%')}}>
-                                            <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.desc}</Text>
-                                            </View>
-                                            <View style={{marginBottom:hp('0.5%'),flexDirection:"row",alignItems:"center"}}>
-                                            <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('1%'),width:hp('1%'),marginRight:wp('1%')}} resizeMode='contain' />
-                                            <Text style={{fontSize:fonts.subnormal,color:colors.black}} numberOfLines={1}>{item.name}</Text>
-                                            </View>
-                                            <View style={{justifyContent:"space-between",flexDirection:"row",alignItems:"center",marginTop:hp('1%')}}>
-                                            <Text style={{fontSize:fonts.normal,color:colors.primary}} numberOfLines={1}>{item.price}</Text>
-                                            <View>
-                                                <View style={{height:hp('3%'),width:wp('15%'),borderWidth:hp('0.15%'),borderColor:colors.gray,justifyContent:"center",alignItems:"center"}}>
-                                                <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>ADD</Text>
-                                                </View>
-                                            </View>
-                                            </View>
-                                            <View style={{justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}>
-                                            <View></View>      
-                                                <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>Customizable</Text>
-                                            </View>
-                                        </View>
-                                    )
-                                })
-                                }
-
-                    </ScrollView>
-
-                {
-                    this.state.renderOBJ.categorys.map((item)=>{
-                            return( 
-                                    <View style={{marginVertical:hp('3%'),width:wp('90%'),alignSelf:"center",}}>
-                                        <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black}} numberOfLines={1}>{item.name}</Text>  
-                                            <Accordion
-                                                sections={item['menu-items']}
-                                                activeSections={this.state.activeSections}
-                                                keyExtractor={item => item.id}
-                                                renderHeader={this._renderHeader}
-                                                renderContent={this._renderContent}
-                                                onChange={this._updateSections}
-                                                underlayColor={"#fff"}                  
-                                                containerStyle={{ backgroundColor: "transparent" }}
-                                            />  
-                                    </View>
-                            )
-                        
-                    })
-                }
-        
-        </ScrollView>
-    
-        <View style={styles.subcontainer3}>
-                <TouchableOpacity onPress={this.onViewCartClick} style={{flexDirection:"row",alignItems:"center",height:hp('8%'),width:wp('30%')}}>
-                <Image source={require('../../assets/icon/cart_yellow.png')} style={{height:hp('3%'),width:hp('3%'),marginRight:hp('1%')}} resizeMode='contain' />
-                <Text style={{fontSize:fonts.normal,color:colors.white}} numberOfLines={1}>View Cart</Text>  
-                </TouchableOpacity>
-                <View style={{alignItems:"center",height:hp('8%'),width:wp('30%'),justifyContent:"center",alignSelf:"center"}}>
-                <Text style={{fontSize:fonts.normal2,color:colors.yellow_font}} numberOfLines={1}>3 item | $200</Text>  
-                </View>
         </View>
-        <TouchableOpacity onPress={()=>{
-                this.onMenuClick();
-            }}  style={styles.menuButtonContainer}>
-                <Text style={styles.loginButtonText}>MENU</Text>
-        </TouchableOpacity>
-        <Image source={require('../../assets/icon/resto_menu_icon.png')} style={{height:hp('2%'),width:hp('2%'),bottom:hp('2%'),position:"absolute",bottom:hp('14.5%'),alignSelf:"center"}} resizeMode='contain' />
-        
+
         <Modal isVisible={this.state.SearchModalVisible} animationOutTiming={1} animationIn="slideInDown">
         <View style={styles.modalmain}>
             <TouchableOpacity onPress={this.onSearchModalBackClick} style={styles.modalsub1}><Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('3%'),width:hp('3%'),}} resizeMode='contain' /></TouchableOpacity>
@@ -723,7 +747,7 @@ export default class Splash extends React.Component {
                     onSubmitEditing={() => { this.onSearchModalBackClick() }}
                     blurOnSubmit={false}
                     underlineColorAndroid = "transparent"
-                    placeholder = "Enter dish name..."
+                    placeholder = "Enter restaurant name..."
                     placeholderTextColor={colors.gray}
                     autoCapitalize = "none"
                     value={this.state.searchstring}
@@ -847,6 +871,7 @@ export default class Splash extends React.Component {
         </View>
         </Modal>
 
+    
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        </View>
      );
@@ -868,7 +893,26 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
         flexDirection:"row"
     },
-    modalmain:{height:hp('7%'),width:wp('100%'),alignSelf:"center",alignItems:"center",backgroundColor:colors.white,position:"absolute",top:-hp('2.5%'),flexDirection:"row"},
+    subcontainerimagecontainer:{
+        height:hp('15%'),
+        width:wp('86%'),
+        alignSelf:"center",
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    searchInputContainer:{
+      backgroundColor:colors.white,
+      alignSelf:"center",
+      height:hp('6%'),
+      width:wp('86%'),
+  },
+  searchInputField:{
+    flex:1,
+    fontSize:font.normal,
+    color:colors.black
+},
+
+    modalmain:{height:hp('7%'),width:wp('100%'),alignSelf:"center",backgroundColor:colors.white,position:"absolute",top:-hp('2.5%'),flexDirection:"row"},
     modalsub1:{height:hp('7%'),width:wp('10%'),justifyContent:"center",alignItems:"center",},
     modalsub2:{height:hp('7%'),width:wp('90%'),justifyContent:"center",alignItems:"center",},
 
@@ -877,13 +921,6 @@ const styles = StyleSheet.create({
     fmodalsub2:{height:hp('45%'),width:wp('100%'),justifyContent:"center",alignItems:"center",},
     fmodalsub3:{height:hp('13%'),width:wp('100%'),justifyContent:"center",alignItems:"center",flexDirection:"row",borderTopWidth:hp('0.15%'),borderColor:colors.gray},
 
-    subcontainerimagecontainer:{
-        height:hp('15%'),
-        width:wp('86%'),
-        alignSelf:"center",
-        alignItems:"center",
-        justifyContent:"center",
-    },
     subcontainerimage:{
         height:hp('15%'),
         width:wp('70%'),
@@ -904,7 +941,7 @@ const styles = StyleSheet.create({
         color:colors.gray,
     },
     subcontainer2:{
-        height:hp('85%'),
+        height:hp('93%'),
         width:wp('100%'),
         backgroundColor:colors.off_white
     },
@@ -956,11 +993,13 @@ const styles = StyleSheet.create({
         fontSize:font.normal,
         color:colors.gray
     },
-    searchInputContainer:{
+    mobileInputContainer:{
+        flexDirection:'row',
         backgroundColor:colors.white,
+        borderBottomColor:colors.primary,
+        borderBottomWidth:hp("0.1%"),
         alignSelf:"center",
         height:hp('6%'),
-        width:wp('86%'),
     },
     passwordInputContainer:{
         flexDirection:'row',
@@ -971,7 +1010,7 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         height:hp('5%'),
     },
-    searchInputField:{
+    iconInputField:{
         flex:1,
         fontSize:font.normal,
         color:colors.black
@@ -982,28 +1021,17 @@ const styles = StyleSheet.create({
         margin:hp('2%')
     },
     loginButtonContainer:{
-        alignItems:'center',
-        justifyContent:"center",
-        backgroundColor:colors.primary,
-        height:hp('6%'),
-        width:wp('40%'),
-        borderRadius:hp('1%'),
-        marginHorizontal:wp('3%')
-    },
-    loginButtonText:{
-        color:colors.white,
-        fontSize:font.normal
-    },
-    menuButtonContainer:{
       alignItems:'center',
       justifyContent:"center",
-      alignSelf:"center",
-      position:"absolute",
-      bottom:hp('10%'),
       backgroundColor:colors.primary,
-      height:hp('5%'),
-      width:wp('30%'),
-      borderRadius:hp('3%'),
+      height:hp('6%'),
+      width:wp('40%'),
+      borderRadius:hp('1%'),
+      marginHorizontal:wp('3%')
+  },
+  loginButtonText:{
+      color:colors.white,
+      fontSize:font.normal
   },
     socialButtonContainer:{
         flexDirection:'row',

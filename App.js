@@ -27,6 +27,8 @@
  import ContactUs from './src/screens/user/contactus';
  import Dashboard from './src/screens/user/dashboard';
  import Favourite from './src/screens/user/favourite';
+ import Cart from './src/screens/user/cart';
+ import RestoList from './src/screens/user/restolist';
 
 
 
@@ -65,6 +67,8 @@
          <RootStack.Screen name="ContactUs" component={ContactUs} />
          <RootStack.Screen name="Dashboard" component={Dashboard} />
          <RootStack.Screen name="Favourite" component={Favourite} />
+         <RootStack.Screen name="Cart" component={Cart} />
+         <RootStack.Screen name="RestoList" component={RestoList} />
 
 
 

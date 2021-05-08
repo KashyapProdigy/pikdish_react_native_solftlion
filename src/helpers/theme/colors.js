@@ -8,6 +8,7 @@ export default colors = {
     gray: "#929292",
     light_gray:"#BDC4CC",
     lightpurple:"#E7E9F9",
-    yellow_font:"#FFC107"
+    yellow_font:"#FFC107",
+    beige:"#F4F4DC"
     // your colors
   }
