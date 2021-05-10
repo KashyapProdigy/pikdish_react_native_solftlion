@@ -29,7 +29,10 @@
  import Favourite from './src/screens/user/favourite';
  import Cart from './src/screens/user/cart';
  import RestoList from './src/screens/user/restolist';
-
+ import TableOrder from './src/screens/user/tableorder';
+ import PaymentSelection from './src/screens/user/paymentselection';
+ import Coupon from './src/screens/user/coupon';
+ import SetAddress from './src/screens/user/setaddress';
 
 
 
@@ -69,6 +72,10 @@
          <RootStack.Screen name="Favourite" component={Favourite} />
          <RootStack.Screen name="Cart" component={Cart} />
          <RootStack.Screen name="RestoList" component={RestoList} />
+         <RootStack.Screen name="TableOrder" component={TableOrder} />
+         <RootStack.Screen name="PaymentSelection" component={PaymentSelection} />
+         <RootStack.Screen name="Coupon" component={Coupon} />
+         <RootStack.Screen name="SetAddress" component={SetAddress} />
 
 
 

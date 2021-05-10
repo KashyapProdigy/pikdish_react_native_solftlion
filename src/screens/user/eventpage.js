@@ -114,7 +114,7 @@ export default class Splash extends React.Component {
     }
 
     onBookSeatClick(){
-
+        this.props.navigation.navigate('PaymentSelection');
     }
 
 

@@ -37,6 +37,7 @@ export default class Splash extends React.Component {
       this.onYourEventClick = this.onYourEventClick.bind(this);
       this.onWalletClick = this.onWalletClick.bind(this);
       this.onSettingClick = this.onSettingClick.bind(this);
+      this.onTableReserveClick = this.onTableReserveClick.bind(this);
       this.onDashboardClick = this.onDashboardClick.bind(this);
       this.onSendFeedbackClick = this.onSendFeedbackClick.bind(this);
       this.onRateUsClick = this.onRateUsClick.bind(this);
@@ -72,6 +73,10 @@ export default class Splash extends React.Component {
     }
 
     onSettingClick(){
+    }
+
+    onTableReserveClick(){
+        this.props.navigation.navigate('TableOrder');
     }
 
     onDashboardClick(){
@@ -193,6 +198,18 @@ export default class Splash extends React.Component {
                 <Image source={require('../../assets/icon/account_wallet.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
                 </View>            
                 <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Wallet</Text>
+                </View>
+                <View>
+                <Image source={require('../../assets/icon/nav_right.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
+                </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.onTableReserveClick} style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",width:wp('86%'),marginTop:hp('3%')}} >
+                <View style={{alignItems:'center',flexDirection:"row"}}>
+                <View style={{backgroundColor:colors.primary_accent1,padding:hp('1%'),borderRadius:hp('1%')}}>
+                <Image source={require('../../assets/icon/account_setting.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>
+                </View>            
+                <Text style={{color:colors.black,fontSize:fonts.normal,paddingHorizontal:wp('5%')}}>Waiter / Delivery</Text>
                 </View>
                 <View>
                 <Image source={require('../../assets/icon/nav_right.png')} style={{height:hp('3.3%'),width:hp('3.3%')}} resizeMode='contain'></Image>

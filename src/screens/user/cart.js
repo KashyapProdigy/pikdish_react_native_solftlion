@@ -379,168 +379,36 @@ export default class Splash extends React.Component {
       };
 
       this.onBackClick = this.onBackClick.bind(this);
-      this.onOfferClick = this.onOfferClick.bind(this);
-      this.onLocationClick = this.onLocationClick.bind(this);
-      this.onTableOrderClick = this.onTableOrderClick.bind(this);
-      this.onTakeAwayClick = this.onTakeAwayClick.bind(this);
-      this.onDeliveryClick = this.onDeliveryClick.bind(this);
-      this.onEventClick = this.onEventClick.bind(this);
-      this.onSearchIconCLick = this.onSearchIconCLick.bind(this);
-      this.onSearchModalBackClick = this.onSearchModalBackClick.bind(this);
-      this.onFilterIconClick = this.onFilterIconClick.bind(this);
-      this.onCloseFilterModalIconClick = this.onCloseFilterModalIconClick.bind(this);
-      this.checkThisBoxSearch = this.checkThisBoxSearch.bind(this);
-      this.checkThisBoxCuisine = this.checkThisBoxCuisine.bind(this);
-      this.checkThisBoxFilter = this.checkThisBoxFilter.bind(this);
-      this.onCleanFilterModalClick = this.onCleanFilterModalClick.bind(this);
-      this.onApplyFilterModalClick = this.onApplyFilterModalClick.bind(this);
-
-      
+      this.onApplyCouponClick = this.onApplyCouponClick.bind(this);
+      this.onPayNowClick = this.onPayNowClick.bind(this);
+      this.onDetailedBillClick = this.onDetailedBillClick.bind(this);
 
     }
 
     componentDidMount(){}
 
-    onLocationClick(){
-
+    onPayNowClick(){
+      this.props.navigation.navigate('PaymentSelection');
     }
 
     onBackClick(){
         this.props.navigation.goBack();
     }
 
-    onTableOrderClick(){
-        this.props.navigation.navigate('DineIn');
+    onDetailedBillClick(){
+        this.props.navigation.navigate('SetAddress');
     }
 
-    onTakeAwayClick(){
 
-    }
-
-    onDeliveryClick(){
-
-    }
-
-    onEventClick(){
-        this.props.navigation.navigate('EventList');
-    }
-
-    onOfferClick(){
-        this.props.navigation.navigate('OfferTabs');
+    onApplyCouponClick(){
+        this.props.navigation.navigate('Coupon');
     }
 
 
  
 
-      onSearchIconCLick(){
-        this.setState({SearchModalVisible:true})
-      }
 
-      onSearchModalBackClick(){
-        this.setState({SearchModalVisible:false,searchstring:""})
-      }
-  
-      onFilterIconClick(){
-        this.setState({FilterModalVisible:true})
-      }
-  
-      onCloseFilterModalIconClick(){
-        this.setState({FilterModalVisible:false})
-      }
 
-      onCleanFilterModalClick(){
-        this.setState({FilterModalVisible:false,
-          sortlist:[
-            {
-              id:0,
-              name:"Relevance",
-              checked:false
-            },
-            {
-              id:1,
-              name:"Alphabetical",
-              checked:false
-            },
-            {
-              id:2,
-              name:"Discount",
-              checked:false
-            },
-            {
-              id:3,
-              name:"Rating",
-              checked:false
-            },
-            {
-              id:4,
-              name:"Preparation time",
-              checked:false
-            },
-          ],
-          cuisinelist:[
-          {
-            id:0,
-            name:"Chinese",
-            checked:false
-          },
-          {
-            id:1,
-            name:"South Indian",
-            checked:false
-          },
-          {
-            id:2,
-            name:"Continental",
-            checked:false
-          },
-
-          ],
-          filterlist:[
-        {
-          id:0,
-          name:"My Favourite",
-          checked:false
-        },
-        {
-          id:1,
-          name:"Offer Only",
-          checked:false
-        },
-        {
-          id:2,
-          name:"Veg",
-          checked:false
-        },
-        {
-          id:3,
-          name:"Non-Veg",
-          checked:false
-        },
-          ],
-        })
-      }
-
-      onApplyFilterModalClick(){
-        this.setState({FilterModalVisible:false})
-      }
-
-      checkThisBoxSearch=(itemID)=>{
-        let list=this.state.sortlist
-        list[itemID].checked=!list[itemID].checked
-        this.setState({sortlist:list})
-      }
-
-      checkThisBoxCuisine=(itemID)=>{
-        let list=this.state.cuisinelist
-        list[itemID].checked=!list[itemID].checked
-        this.setState({cuisinelist:list})
-      }
-
-      checkThisBoxFilter=(itemID)=>{
-        let list=this.state.filterlist
-        list[itemID].checked=!list[itemID].checked
-        this.setState({filterlist:list})
-      }
 
     render () {
 

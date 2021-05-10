@@ -360,6 +360,111 @@ export default class Splash extends React.Component {
     ],
 
 
+    CustomizeModalVisible:false,
+    Quantity:[
+      {
+        id:0,
+        name:"50 ml",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:1,
+        name:"Half Palte",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:2,
+        name:"250 gms",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:3,
+        name:"50 ml",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:4,
+        name:"50 ml",
+        price:"$20",
+        checked:false
+      },
+    ],
+    Preparation:[
+      {
+        id:0,
+        name:"Normal",
+        price:"$0",
+        checked:false
+      },
+      {
+        id:1,
+        name:"Jain",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:2,
+        name:"Half Jain",
+        price:"$20",
+        checked:false
+      },
+
+    ],
+    AddOns:[
+      {
+        id:0,
+        name:"Cheese",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:1,
+        name:"Extra Cheese",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:2,
+        name:"Extra Pav",
+        price:"$20",
+        checked:false
+      },
+      {
+        id:3,
+        name:"Roti",
+        price:"$20",
+        checked:false
+      },
+    ],
+
+    Menulist:[
+      {
+        id:0,
+        name:"Recommended",
+        number:"14",
+        checked:true
+      },
+      {
+        id:1,
+        name:"Pizza",
+        number:"11",
+        checked:false
+      },
+      {
+        id:2,
+        name:"Sandwich",
+        number:"150",
+        checked:false
+      },
+    ],
+
+    SuggestionModalVisible:false,
+    MenuModalVisible:false,
+
       };
 
       this.onBackClick = this.onBackClick.bind(this);
@@ -373,15 +478,33 @@ export default class Splash extends React.Component {
       this.checkThisBoxSearch = this.checkThisBoxSearch.bind(this);
       this.checkThisBoxCuisine = this.checkThisBoxCuisine.bind(this);
       this.checkThisBoxFilter = this.checkThisBoxFilter.bind(this);
+      this.checkThisBoxQuantity = this.checkThisBoxQuantity.bind(this);
+      this.checkThisBoxPreparation = this.checkThisBoxPreparation.bind(this);
+      this.checkThisBoxQuantity = this.checkThisBoxQuantity.bind(this);
       this.onCleanFilterModalClick = this.onCleanFilterModalClick.bind(this);
       this.onApplyFilterModalClick = this.onApplyFilterModalClick.bind(this);
+      this.onCustomizeIconClick = this.onCustomizeIconClick.bind(this);
+      this.onCustomizeModalCloseClick = this.onCustomizeModalCloseClick.bind(this);
+      this.onSuggestionModalCloseClick = this.onSuggestionModalCloseClick.bind(this);
       this.onMenuClick = this.onMenuClick.bind(this);
-
+      this.onMenuItemClick = this.onMenuItemClick.bind(this);
+      this.onMenuCloseClick = this.onMenuCloseClick.bind(this);
+      this.onAddProductClick = this.onAddProductClick.bind(this);
       
 
     }
 
-    componentDidMount(){}
+    componentDidMount(){
+    }
+
+
+    onAddProductClick(){
+      this.setState({SuggestionModalVisible:true})
+    }
+
+    onSuggestionModalCloseClick(){
+      this.setState({SuggestionModalVisible:false})
+    }
 
 
     onBackClick(){
@@ -428,9 +551,9 @@ export default class Splash extends React.Component {
                           </View>
 
                           <View style={{width:wp('25%'),height:hp('8%'),justifyContent:"center",alignItems:"center"}}>
-                            <View style={{height:hp('3%'),width:wp('15%'),borderWidth:hp('0.15%'),borderColor:colors.gray,justifyContent:"center",alignItems:"center"}}>
+                            <TouchableOpacity onPress={this.onAddProductClick} style={{height:hp('3%'),width:wp('15%'),borderWidth:hp('0.15%'),borderColor:colors.gray,justifyContent:"center",alignItems:"center"}}>
                             <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>ADD</Text>
-                            </View>
+                            </TouchableOpacity>
                           </View>
                       </View>
                   }
@@ -442,14 +565,27 @@ export default class Splash extends React.Component {
         this.setState({ activeSections });
       };
 
+      onMenuClick(){
+        this.setState({MenuModalVisible:true})
+      }
+
+      onMenuItemClick(){
+        this.setState({MenuModalVisible:false})
+        this.contentRef.scrollTo(hp('30%'));
+      }
+
+      onMenuCloseClick(){
+        this.setState({MenuModalVisible:false})
+      }
+
       onSearchIconCLick(){
         this.setState({SearchModalVisible:true})
       }
 
       onFavIconCLick(){
       }
-      onMenuClick(){
-      }
+
+
 
       onSearchModalBackClick(){
         this.setState({SearchModalVisible:false,searchstring:""})
@@ -557,6 +693,32 @@ export default class Splash extends React.Component {
         this.setState({filterlist:list})
       }
 
+      checkThisBoxQuantity=(itemID)=>{
+        let list=this.state.Quantity
+        list[itemID].checked=!list[itemID].checked
+        this.setState({Quantity:list})
+      }
+
+      checkThisBoxPreparation=(itemID)=>{
+        let list=this.state.Preparation
+        list[itemID].checked=!list[itemID].checked
+        this.setState({Preparation:list})
+      }
+
+      checkThisBoxAddOns=(itemID)=>{
+        let list=this.state.AddOns
+        list[itemID].checked=!list[itemID].checked
+        this.setState({AddOns:list})
+      }
+
+      onCustomizeIconClick(){
+        this.setState({CustomizeModalVisible:true})
+      }
+
+      onCustomizeModalCloseClick(){
+        this.setState({CustomizeModalVisible:false})
+      }
+
     render () {
 
 
@@ -579,7 +741,8 @@ export default class Splash extends React.Component {
         </View>
         </View>
 
-       <ScrollView 
+       <ScrollView
+            ref={ref => this.contentRef = ref}
             nestedScrollEnabled={true}
             style={styles.subcontainer2}
             showsHorizontalScrollIndicator={false}
@@ -662,10 +825,10 @@ export default class Splash extends React.Component {
                                                 </View>
                                             </View>
                                             </View>
-                                            <View style={{justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}>
+                                            <TouchableOpacity onPress={this.onCustomizeIconClick} style={{justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}>
                                             <View></View>      
                                                 <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>Customizable</Text>
-                                            </View>
+                                            </TouchableOpacity>
                                         </View>
                                     )
                                 })
@@ -677,7 +840,7 @@ export default class Splash extends React.Component {
                     this.state.renderOBJ.categorys.map((item)=>{
                             return( 
                                     <View style={{marginVertical:hp('3%'),width:wp('90%'),alignSelf:"center",}}>
-                                        <Text style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black}} numberOfLines={1}>{item.name}</Text>  
+                                        <Text ref={ref => this.targetRef = ref} style={{fontSize:fonts.normalheader,fontWeight:"bold",color:colors.black}} numberOfLines={1}>{item.name}</Text>  
                                             <Accordion
                                                 sections={item['menu-items']}
                                                 activeSections={this.state.activeSections}
@@ -847,6 +1010,221 @@ export default class Splash extends React.Component {
         </View>
         </Modal>
 
+        <Modal isVisible={this.state.CustomizeModalVisible} animationOut="slideOutDown" animationIn="slideInUp">
+        <View style={styles.cmodalmain}>
+
+          <View style={styles.cmodalsub1}>
+            <View style={{}}>
+              <View style={{flexDirection:"row",alignItems:"center"}}>
+              <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%'),marginRight:hp('1%')}} resizeMode='contain' />
+              <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>Customize "Name"</Text>  
+              </View>
+            <Text style={{fontSize:fonts.subnormal,color:colors.primary,marginLeft:hp('3%')}} numberOfLines={1}>$200</Text>  
+            </View>
+          <TouchableOpacity onPress={this.onCustomizeModalCloseClick}><Image source={require('../../assets/icon/close_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /></TouchableOpacity>
+          </View>
+
+ 
+          <ScrollView 
+              style={styles.cmodalsub2}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingVertical: hp('2%'),paddingHorizontal:wp('5%'),justifyContent:"center",}}
+          >
+
+              <View style={{}}>
+                <Text style={{fontSize:fonts.normal,fontWeight:"bold",color:colors.black,marginLeft:wp('5%'),marginBottom:hp('1%')}} numberOfLines={1}>Quantity</Text>  
+              </View>
+
+              <FlatList
+                  numColumns={1}
+                  showsVerticalScrollIndicator={false}
+                  style={{}}
+                  contentContainerStyle={{}}
+                  data={this.state.Quantity}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) =>                     
+                          <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('90%') ,}}>
+                                  <CheckBox
+                                  title={item.name + ' - ' +item.price}
+                                  checkedIcon='dot-circle-o'
+                                  uncheckedIcon='circle-o'
+                                  checkedColor={colors.primary}
+                                  uncheckedColor={colors.gray}
+                                  textStyle={{fontSize:fonts.normal1,fontWeight:"normal",}}
+                                  checked={this.state.Quantity[item.id].checked}
+                                  containerStyle={{backgroundColor:colors.white,borderWidth:0}}
+                                  onPress={() => this.checkThisBoxQuantity(item.id)}
+                                  />
+                          </View>
+                          
+                      }
+                />
+
+              <View style={{alignSelf:"center",height:hp('0.1%'),width:wp('50%'),backgroundColor:colors.light_gray,marginVertical:hp('1.50%')}}></View>
+
+
+              <View style={{}}>
+                <Text style={{fontSize:fonts.normal,fontWeight:"bold",color:colors.black,marginLeft:wp('5%'),marginBottom:hp('1%')}} numberOfLines={1}>Preparation</Text>  
+              </View>
+
+              <FlatList
+                  numColumns={1}
+                  showsVerticalScrollIndicator={false}
+                  style={{}}
+                  contentContainerStyle={{}}
+                  data={this.state.Preparation}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) =>                     
+                          <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('90%') ,}}>
+                                  <CheckBox
+                                  title={item.name + ' - ' +item.price}
+                                  checkedIcon='dot-circle-o'
+                                  uncheckedIcon='circle-o'
+                                  checkedColor={colors.primary}
+                                  uncheckedColor={colors.gray}
+                                  textStyle={{fontSize:fonts.normal1,fontWeight:"normal",}}
+                                  checked={this.state.Preparation[item.id].checked}
+                                  containerStyle={{backgroundColor:colors.white,borderWidth:0}}
+                                  onPress={() => this.checkThisBoxPreparation(item.id)}
+                                  />
+                          </View>
+                          
+                      }
+                />
+
+              <View style={{alignSelf:"center",height:hp('0.1%'),width:wp('50%'),backgroundColor:colors.light_gray,marginVertical:hp('1.50%')}}></View>
+
+
+              <View style={{}}>
+                <Text style={{fontSize:fonts.normal,fontWeight:"bold",color:colors.black,marginLeft:wp('5%'),marginBottom:hp('1%')}} numberOfLines={1}>Add Ons</Text>  
+              </View>
+
+              <FlatList
+                  numColumns={1}
+                  showsVerticalScrollIndicator={false}
+                  style={{}}
+                  contentContainerStyle={{}}
+                  data={this.state.AddOns}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) =>                     
+                          <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('90%') ,}}>
+                                  <CheckBox
+                                  title={item.name + ' - ' +item.price}
+                                  checkedIcon='check-circle-o'
+                                  uncheckedIcon='check-circle-o'
+                                  checkedColor={colors.primary}
+                                  uncheckedColor={colors.gray}
+                                  textStyle={{fontSize:fonts.normal1,fontWeight:"normal",}}
+                                  checked={this.state.AddOns[item.id].checked}
+                                  containerStyle={{backgroundColor:colors.white,borderWidth:0}}
+                                  onPress={() => this.checkThisBoxAddOns(item.id)}
+                                  />
+                          </View>
+                          
+                      }
+                />
+
+
+          </ScrollView>
+      
+
+          <View style={styles.cmodalsub3}>
+          <TouchableOpacity onPress={()=>{
+                this.onCustomizeModalCloseClick();
+            }}  style={styles.cButtonContainer}>
+                <Text style={styles.cButtonText}>Item Total : $200</Text>
+                <Text style={styles.cButtonText}>ADD ITEM</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+        </Modal>
+
+        <Modal isVisible={this.state.SuggestionModalVisible} animationOut="slideOutDown" animationIn="slideInUp">
+        <View style={styles.smodalmain}>
+
+          <View style={styles.smodalsub1}>
+            <Text style={{fontSize:fonts.normal,color:colors.black,fontWeight:"bold"}} numberOfLines={1}>Suggested Item</Text>  
+          <TouchableOpacity onPress={this.onSuggestionModalCloseClick}><Image source={require('../../assets/icon/close_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /></TouchableOpacity>
+          </View>
+
+ 
+          <ScrollView 
+              style={styles.smodalsub2}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingVertical: hp('2%'),paddingHorizontal:wp('5%'),justifyContent:"center",}}
+          >
+
+                              {
+                                this.state.renderOBJ.recommended.map((item)=>{
+                                    return(
+                                        <View style={{marginVertical:hp('1%'),height:hp('10%'),width:wp('90%'),alignSelf:"center",flexDirection:"row",borderBottomWidth:hp('0.1%'),borderColor:colors.light_gray}}>
+                                            <Image source={item.image} style={{height:hp('9%'),width:wp('20%')}} resizeMode='cover'></Image>
+                                            <View style={{height:hp('10%'),width:wp('70%'),paddingHorizontal:wp('5%')}} >
+                                              <View style={{}}>
+                                              <Text style={{fontSize:fonts.normal,color:colors.black}} numberOfLines={1}>{item.name}</Text>
+                                              <View style={{flexDirection:"row",alignItems:"center",marginTop:hp('1%'),justifyContent:"space-between"}}>
+                                                <Text style={{fontSize:fonts.normal,color:colors.primary}} numberOfLines={1}>{item.price}</Text>
+                                                <View style={{height:hp('3%'),width:wp('15%'),borderWidth:hp('0.15%'),borderColor:colors.gray,justifyContent:"center",alignItems:"center"}}>
+                                                <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>ADD</Text>
+                                                </View>
+                                              </View>
+                                              </View>
+                                            </View>
+                                        </View>
+                                    )
+                                })
+                                }
+
+          </ScrollView>     
+        </View>
+        </Modal>
+
+
+        <Modal isVisible={this.state.MenuModalVisible} animationOut="slideOutDown" animationIn="slideInUp">
+        <View style={styles.mmodalmain}>
+
+          <View style={styles.mmodalsub1}>
+          <Text style={{fontSize:fonts.normal,color:colors.black,fontWeight:"bold"}} numberOfLines={1}></Text>  
+          <TouchableOpacity onPress={this.onMenuCloseClick}><Image source={require('../../assets/icon/close_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /></TouchableOpacity>
+          </View>
+
+ 
+          <ScrollView 
+              style={styles.mmodalsub2}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingVertical: hp('2%')}}
+          >
+
+                              {
+                                this.state.Menulist.map((item)=>{
+                                    return(
+                                        <TouchableOpacity onPress={()=>{this.onMenuItemClick()}} style={{height:hp('5%'),width:wp('90%'),alignSelf:"center",flexDirection:"row",}}>
+                                          <View style={{height:hp('5%'),width:wp('15%'),alignItems:"center",justifyContent:"center"}}>
+                                              {
+                                                item.checked?
+                                                <Image source={require('../../assets/icon/tick_primary.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
+                                                :null
+                                              }
+                                          </View>
+                                          <View style={{height:hp('5%'),width:wp('60%'),paddingHorizontal:wp('1%'),justifyContent:"center"}}>
+                                            <Text style={{colot:colors.black,fontSize:fonts.normal}}>{item.name}</Text>
+                                          </View>
+                                          <View style={{height:hp('5%'),width:wp('15%'),alignItems:"center",justifyContent:"center",}}>
+                                          <Text style={{colot:colors.gray,fontSize:fonts.normal}}>{item.number}</Text>
+                                          </View>
+                                        </TouchableOpacity>
+                                    )
+                                })
+                                }
+
+          </ScrollView>     
+        </View>
+        </Modal>
+
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        </View>
      );
@@ -876,6 +1254,20 @@ const styles = StyleSheet.create({
     fmodalsub1:{height:hp('7%'),width:wp('100%'),paddingHorizontal:wp('10%'),alignItems:"center",justifyContent:"space-between",alignSelf:"center",flexDirection:"row",borderBottomWidth:hp('0.15%'),borderColor:colors.gray},
     fmodalsub2:{height:hp('45%'),width:wp('100%'),justifyContent:"center",alignItems:"center",},
     fmodalsub3:{height:hp('13%'),width:wp('100%'),justifyContent:"center",alignItems:"center",flexDirection:"row",borderTopWidth:hp('0.15%'),borderColor:colors.gray},
+
+
+    cmodalmain:{height:hp('93%'),width:wp('100%'),alignSelf:"center",alignItems:"center",backgroundColor:colors.white,position:"absolute",bottom:-hp('2.5%')},
+    cmodalsub1:{height:hp('7%'),width:wp('100%'),paddingHorizontal:wp('10%'),alignItems:"center",justifyContent:"space-between",alignSelf:"center",flexDirection:"row",borderBottomWidth:hp('0.15%'),borderColor:colors.gray},
+    cmodalsub2:{height:hp('73%'),width:wp('100%')},
+    cmodalsub3:{height:hp('13%'),width:wp('100%'),justifyContent:"center",alignItems:"center",flexDirection:"row",borderTopWidth:hp('0.15%'),borderColor:colors.gray},
+
+    smodalmain:{height:hp('60%'),width:wp('100%'),alignSelf:"center",alignItems:"center",backgroundColor:colors.white,position:"absolute",bottom:-hp('2.5%')},
+    smodalsub1:{height:hp('7%'),width:wp('100%'),paddingHorizontal:wp('10%'),alignItems:"center",justifyContent:"space-between",alignSelf:"center",flexDirection:"row",borderBottomWidth:hp('0.15%'),borderColor:colors.gray},
+    smodalsub2:{height:hp('53%'),width:wp('100%')},
+
+    mmodalmain:{height:hp('40%'),width:wp('90%'),alignSelf:"center",alignItems:"center",backgroundColor:colors.white,position:"absolute",bottom:hp('20%'),borderRadius:hp('2%')},
+    mmodalsub1:{height:hp('7%'),width:wp('90%'),paddingHorizontal:wp('5%'),alignItems:"center",justifyContent:"space-between",alignSelf:"center",flexDirection:"row",},
+    mmodalsub2:{height:hp('33%'),width:wp('90%'),},
 
     subcontainerimagecontainer:{
         height:hp('15%'),
@@ -994,6 +1386,23 @@ const styles = StyleSheet.create({
         color:colors.white,
         fontSize:font.normal
     },
+
+    cButtonContainer:{
+      alignItems:'center',
+      justifyContent:"space-between",
+      alignSelf:"center",
+      flexDirection:"row",
+      backgroundColor:colors.primary,
+      height:hp('7%'),
+      width:wp('90%'),
+      paddingHorizontal:hp('2%'),
+      paddingVertical:hp('1%'),
+      borderRadius:hp('1%'),
+  },
+  cButtonText:{
+      color:colors.white,
+      fontSize:font.normal
+  },
     menuButtonContainer:{
       alignItems:'center',
       justifyContent:"center",

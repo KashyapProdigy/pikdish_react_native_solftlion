@@ -664,231 +664,41 @@ export default class Splash extends React.Component {
  
         <TouchableOpacity onPress={this.onBackClick} style={{height:hp('7%'),width:wp('60%'),alignItems:"center",flexDirection:"row"}}>
             <Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('3%'),width:hp('3%'),marginHorizontal:wp('3%')}} resizeMode='contain' />
-            <Text style={{fontSize:fonts.normalheader,color:colors.black}} >Favourite Restaurant</Text>
+            <Text style={{fontSize:fonts.normalheader,color:colors.black}} >Payment Options</Text>
         </TouchableOpacity>
    
         <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",paddingHorizontal:wp('4%'),height:hp('7%'),width:wp('30%')}}>
             <View></View>
-            <TouchableOpacity onPress={this.onSearchIconCLick}><Image source={require('../../assets/icon/search_gray.png')} style={{height:hp('3%'),width:hp('3%')}} resizeMode='contain' /></TouchableOpacity>
+            <View></View>
         </View>
         </View>
 
         <View style={styles.subcontainer2}>
 
-        <View style={{alignSelf:"center",flexDirection:"row",height:hp('25%'),width:wp('100%'),alignItems:"center",justifyContent:"center",backgroundColor:colors.off_white}}>
-            <FlatList
-              horizontal={true}
-              showsVerticalScrollIndicator={false}
-              style={{}}
-              contentContainerStyle={{paddingRight:wp('3%')}}
-              data={this.state.renderOBJ.recommended}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) =>                     
-                      <View style={{marginTop:hp('2%'),height:hp('23%'),width:hp('31%'),marginLeft:wp('3%'),alignSelf:"center",alignItems:"center",flexDirection:"row"}}>
-                          <Image source={item.image} style={{height:hp('22%'),width:hp('30%'),borderRadius:hp('1%')}} resizeMode='cover' />
-                      </View>
-                  }
-             />
-            </View>
+        <View style={{height:hp('13%'),width:wp('90%'),alignSelf:"center",alignItems:"center",justifyContent:"center",borderBottomWidth:hp('0.1%'),borderColor:colors.light_gray}}>
+            <Text style={{color:colors.black,fontSize:fonts.normalheader}}>Payable Amount</Text>
+            <Text style={{color:colors.black,fontSize:fonts.normalheader,fontWeight:"bold",marginTop:hp('1%')}}>$ 200.00</Text>
+        </View>
 
-            <View style={{height:hp('5%'),width:wp('90%'),alignSelf:"center",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
-                  <ToggleSwitch
-
-                    isOn={this.state.vegswitch}
-                    onColor={colors.primary}
-                    offColor={colors.yellow_font}
-                    label="Veg :"
-                    labelStyle={{ color:colors.black, fontSize:fonts.normal }}
-                    size="medium"
-                    onToggle={isOn => this.setState({vegswitch:isOn})}
-                    />
-
-                    <TouchableOpacity onPress={this.onFilterIconClick} style={{flexDirection:"row",alignItems:"center"}}>
-                    <Image source={require('../../assets/icon/search_gray.png')} style={{height:hp('1.75%'),width:hp('1.75%'),marginHorizontal:wp('1.5%')}} resizeMode='contain' />
-                    <Text style={{fontSize:fonts.normal1,color:colors.gray,marginHorizontal:wp('1.5%')}}>Sort | Filter</Text>
-                    </TouchableOpacity>
-
-            </View>
-
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              style={{height:hp('73%'),width:wp('98%'),alignSelf:"center",}}
-              contentContainerStyle={{paddingBottom:hp('3%')}}
-              data={this.state.renderTerms}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) =>                     
-                  <TouchableOpacity  onPress={this.onRestaurantClick} style={{marginTop:hp('2%'),alignSelf:"center",alignItems:"center",flexDirection:"row",height:hp('12%'),width:wp('96%'),borderRadius:hp('2%'),backgroundColor:colors.white}}>
-                      <View style={{height:hp('12%'),width:wp('25%'),alignItems:"center",justifyContent:"center"}}>
-                          <Image source={item.image} style={{height:hp('9%'),width:wp('20%'),borderRadius:hp('0.5%')}} resizeMode='stretch'></Image>
-                      </View>
-                      <View style={{height:hp('12%'),width:wp('47%'),justifyContent:"center"}}>
-                          <View style={{}}>
-                            <View style={{flexDirection:"row",alignItems:"center",paddingRight:wp('1%')}} >
-                              <Image source={require('../../assets/icon/veg_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-                                <Text style={{fontSize:fonts.normal,color:colors.black,marginLeft:wp('1%')}} numberOfLines={1}>{item.name}</Text>
-                              </View>
-                          <Text style={{fontSize:fonts.subnormal,color:colors.primary}} numberOfLines={1}>{item.coupon_name}</Text>
-                          <View style={{borderBottomColor:colors.gray,borderBottomWidth:hp('0.1%'),width:wp('37%')}}>
-                          </View>
-                          </View>
-                          <View style={{flexDirection:"row"}}>
-                          <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.rating}</Text>
-                          <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>|{item.time}|</Text>
-                          <Text style={{fontSize:fonts.subnormal2,color:colors.gray}} numberOfLines={1}>{item.coupon_type}</Text>
-                          </View>
-                          
-                      </View>
-                      <View style={{height:hp('12%'),width:wp('24%'),alignItems:"center",justifyContent:"center"}}>
-                          <View style={{flexDirection:"row",marginBottom:hp('1%')}}>
-                          <Image source={require('../../assets/icon/discount_primary.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-                          <Text style={{fontSize:fonts.subnormal,color:colors.primary,marginLeft:wp('1%')}} numberOfLines={1}>{item.coupon_rate}</Text>
-                          </View>
-                          <TouchableOpacity onPress={this.onRestaurantFavClick} style={{height:hp('4%'),width:hp('4%'),borderRadius:hp('4%')/2,elevation:9,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
-                          <Image source={require('../../assets/icon/heart_gray.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' />
-                          </TouchableOpacity>
-                      </View>
-                  </TouchableOpacity>
-                  }
-             />
+        <View style={{height:hp('12%'),width:wp('90%'),alignSelf:"center",alignItems:"center",justifyContent:"space-between",borderRadius:hp('2%'),backgroundColor:colors.white,paddingHorizontal:wp('2%'),paddingVertical:hp('2%'),marginVertical:hp('3%')}}>
+        <View style={{flexDirection:"row",alignSelf:"center",justifyContent:"center",alignItems:"center",marginTop:hp('1%')}}>
+        <Image source={require('../../assets/icon/cash_logo.png')} style={{height:hp('3%'),width:hp('3%')}} resizeMode='contain' />
+        <Text style={{color:colors.black,fontSize:fonts.normalheader,fontWeight:"bold",marginLeft:wp('3%')}}>Cash</Text>
+        </View>
+        <Text style={{color:colors.light_gray,fontSize:fonts.subnormal2,marginTop:hp('1%')}}>Please keep exact change handy to help us serve you better </Text>
 
         </View>
 
-        <Modal isVisible={this.state.SearchModalVisible} animationOutTiming={1} animationIn="slideInDown">
-        <View style={styles.modalmain}>
-            <TouchableOpacity onPress={this.onSearchModalBackClick} style={styles.modalsub1}><Image source={require('../../assets/icon/nav_left.png')} style={{height:hp('3%'),width:hp('3%'),}} resizeMode='contain' /></TouchableOpacity>
-            <View style={styles.modalsub2}>            
-                <View style={styles.searchInputContainer}>
-                <TextInput style = {styles.searchInputField}
-                    ref={(input) => { this.searchInputRef = input }}
-                    returnKeyType="done"
-                    onSubmitEditing={() => { this.onSearchModalBackClick() }}
-                    blurOnSubmit={false}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Enter restaurant name..."
-                    placeholderTextColor={colors.gray}
-                    autoCapitalize = "none"
-                    value={this.state.searchstring}
-                    onChangeText={(searchstring) => this.setState({searchstring})}  />
-                </View>
-            </View>
+        <View style={{height:hp('12%'),width:wp('90%'),alignSelf:"center",alignItems:"center",justifyContent:"center",borderRadius:hp('2%'),backgroundColor:colors.white,paddingHorizontal:wp('2%'),marginVertical:hp('3%')}}>
+        <Image source={require('../../assets/icon/paytm_logo.png')} style={{height:hp('10%'),width:hp('15%')}} resizeMode='contain' />
+        </View>
+
+        <View style={{height:hp('12%'),width:wp('90%'),alignSelf:"center",alignItems:"center",justifyContent:"center",borderRadius:hp('2%'),backgroundColor:colors.white,paddingHorizontal:wp('2%'),marginVertical:hp('3%')}}>
+        <Image source={require('../../assets/icon/phonepe_logo.png')} style={{height:hp('8%'),width:hp('8%')}} resizeMode='contain' />
+        </View>
 
         </View>
-        </Modal>
 
-
-        <Modal isVisible={this.state.FilterModalVisible} animationOut="slideOutDown" animationIn="slideInUp">
-        <View style={styles.fmodalmain}>
-          <View style={styles.fmodalsub1}>
-          <Text style={{fontSize:fonts.normal2,color:colors.black}} numberOfLines={1}>Sort / Filter</Text>  
-          <TouchableOpacity onPress={this.onCloseFilterModalIconClick}><Image source={require('../../assets/icon/close_icon.png')} style={{height:hp('2%'),width:hp('2%')}} resizeMode='contain' /></TouchableOpacity>
-          </View>
-          <View style={styles.fmodalsub2}>
-              <View style={{height:hp('7%'),width:wp('100%'),flexDirection:"row",justifyContent:"space-around",alignItems:"center" }}>
-                <TouchableOpacity onPress={()=>{this.setState({tabINDEX:0})}} style={{justifyContent:"center",alignItems:"center",height:hp('7%'),width:wp('33%'),borderBottomWidth:hp('0.15%'),borderBottomColor:this.state.tabINDEX==0?colors.primary:colors.white}}><Text style={{fontSize:fonts.normal2,color:this.state.tabINDEX==0?colors.black:colors.gray}}>Sort</Text></TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.setState({tabINDEX:1})}} style={{justifyContent:"center",alignItems:"center",height:hp('7%'),width:wp('33%'),borderBottomWidth:hp('0.15%'),borderBottomColor:this.state.tabINDEX==1?colors.primary:colors.white}}><Text style={{fontSize:fonts.normal2,color:this.state.tabINDEX==1?colors.black:colors.gray}}>Cuisine</Text></TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.setState({tabINDEX:2})}} style={{justifyContent:"center",alignItems:"center",height:hp('7%'),width:wp('33%'),borderBottomWidth:hp('0.15%'),borderBottomColor:this.state.tabINDEX==2?colors.primary:colors.white}}><Text style={{fontSize:fonts.normal2,color:this.state.tabINDEX==2?colors.black:colors.gray}}>Filter</Text></TouchableOpacity>
-              </View>
-              <View style={{height:hp('38%'),width:wp('100%'), alignSelf:"center",justifyContent:"center",alignItems:"center"}}>
-                {
-                  this.state.tabINDEX == 0 ?
-                  <FlatList
-                  numColumns={1}
-                  showsVerticalScrollIndicator={false}
-                  style={{height:hp('38%'),width:wp('100%')}}
-                  contentContainerStyle={{ paddingBottom: hp('4%')}}
-                  data={this.state.sortlist}
-                  keyExtractor={item => item.id}
-                  renderItem={({ item }) =>                     
-                          <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('90%') ,}}>
-                                  <CheckBox
-                                  title={item.name}
-                                  checkedIcon='dot-circle-o'
-                                  uncheckedIcon='circle-o'
-                                  checkedColor={colors.primary}
-                                  uncheckedColor={colors.gray}
-                                  textStyle={{fontSize:fonts.normal1,fontWeight:"normal",}}
-                                  checked={this.state.sortlist[item.id].checked}
-                                  containerStyle={{backgroundColor:colors.white,borderWidth:0}}
-                                  onPress={() => this.checkThisBoxSearch(item.id)}
-                                  />
-                          </View>
-                          
-                      }
-                  />
-                  :
-                  this.state.tabINDEX == 1 ?
-                      <FlatList
-                      numColumns={1}
-                      showsVerticalScrollIndicator={false}
-                      style={{height:hp('38%'),width:wp('100%')}}
-                      contentContainerStyle={{ paddingBottom: hp('4%')}}
-                      data={this.state.cuisinelist}
-                      keyExtractor={item => item.id}
-                      renderItem={({ item }) =>                     
-                              <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('90%') ,}}>
-                                      <CheckBox
-                                      title={item.name}
-                                      checkedIcon='dot-circle-o'
-                                      uncheckedIcon='circle-o'
-                                      checkedColor={colors.primary}
-                                      uncheckedColor={colors.gray}
-                                      textStyle={{fontSize:fonts.normal1,fontWeight:"normal",}}
-                                      checked={this.state.cuisinelist[item.id].checked}
-                                      containerStyle={{backgroundColor:colors.white,borderWidth:0}}
-                                      onPress={() => this.checkThisBoxCuisine(item.id)}
-                                      />
-                              </View>
-                              
-                          }
-                      />
-                  :
-                  <FlatList
-                  numColumns={1}
-                  showsVerticalScrollIndicator={false}
-                  style={{height:hp('38%'),width:wp('100%')}}
-                  contentContainerStyle={{ paddingBottom: hp('4%')}}
-                  data={this.state.filterlist}
-                  keyExtractor={item => item.id}
-                  renderItem={({ item }) =>                     
-                          <View style={{marginTop:hp('1%'),alignSelf:"center",width:wp('90%') ,}}>
-                                  <CheckBox
-                                  title={item.name}
-                                  checkedIcon='dot-circle-o'
-                                  uncheckedIcon='circle-o'
-                                  checkedColor={colors.primary}
-                                  uncheckedColor={colors.gray}
-                                  textStyle={{fontSize:fonts.normal1,fontWeight:"normal",}}
-                                  checked={this.state.filterlist[item.id].checked}
-                                  containerStyle={{backgroundColor:colors.white,borderWidth:0}}
-                                  onPress={() => this.checkThisBoxFilter(item.id)}
-                                  />
-                          </View>
-                          
-                      }
-                  />
-                }
-
-
-              </View>
-          </View>
-
-          <View style={styles.fmodalsub3}>
-          <TouchableOpacity onPress={()=>{
-                this.onCleanFilterModalClick();
-            }}  style={styles.loginButtonContainer}>
-                <Text style={styles.loginButtonText}>Clean All</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-                this.onApplyFilterModalClick();
-            }}  style={styles.loginButtonContainer}>
-                <Text style={styles.loginButtonText}>APPLY</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-        </Modal>
-
-    
        <DropdownAlert inactiveStatusBarStyle="dark-content" inactiveStatusBarBackgroundColor="white" ref={ref => this.dropDownAlertRef = ref} />
        </View>
      );
