@@ -417,6 +417,7 @@ const styles = StyleSheet.create({
         marginHorizontal:wp('2%'),
         paddingHorizontal:wp('1%'),
         height:hp('6%'),
+        borderRadius:hp('1.5%')
     },
     aInputContainer:{
       flexDirection:'row',
@@ -427,6 +428,7 @@ const styles = StyleSheet.create({
       marginHorizontal:wp('2%'),
       paddingHorizontal:wp('1%'),
       height:hp('10%'),
+      borderRadius:hp('1.5%')
   },
     InputField:{
         flex:1,

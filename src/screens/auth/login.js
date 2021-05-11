@@ -17,10 +17,10 @@ import DropdownAlert from 'react-native-dropdownalert';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import colors from '../../helpers/theme/colors';
 import fonts from '../../helpers/theme/font';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { color } from 'react-native-reanimated';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthServices from '../../api/authservices';
+import NetworkCheck from '../../helpers/network/networkcheck';
 
 export default class Splash extends React.Component {
     constructor (props) {
@@ -42,72 +42,65 @@ export default class Splash extends React.Component {
 
     componentDidMount(){}
 
-    onLoginClick(){
-        this.props.navigation.replace('MainTabs');
-        // Keyboard.dismiss();
+    async onLoginClick(){
 
-        // const isConnected = await NetworkCheck.isNetworkAvailable()
+        Keyboard.dismiss();
 
-        // if (isConnected) {  
+        const isConnected = await NetworkCheck.isNetworkAvailable();
 
-        // if(this.state.mobile.trim() == ''){
-        //     this.setState({mobile:''},()=>{this.mobileInputRef.focus(); })
-        //     this.dropDownAlertRef.alertWithType('error',"Mobile Number cannot be blank");
-        //   return
-        // }
-        // if(this.state.mobile.length < 10 ){
-        //     this.mobileInputRef.focus();
-        //     this.dropDownAlertRef.alertWithType('error',"Number should contain atleast 10 digits");
-        //   return
-        // }
-        // if(this.state.password == ''){
-        //     this.passwordInputRef.focus()
-        //     this.dropDownAlertRef.alertWithType('error',"Password cannot be blank");
-        //   return
-        // }
-        // if(this.state.password.length < 6 ){
-        //     this.passwordInputRef.focus();
-        //     this.dropDownAlertRef.alertWithType('error',"Password should contain atleast 6 letters");
-        //   return
-        // }
+        if (isConnected) {  
 
-        // let myFormData = new FormData();
-        // myFormData.append("mobile_no", this.state.mobile)
-        // myFormData.append("password", this.state.password)
-        // myFormData.append("type",1)
+            if(this.state.mobile.trim() == ''){
+                this.setState({mobile:''},()=>{this.mobileInputRef.focus(); })
+                this.dropDownAlertRef.alertWithType('error',"Mobile Number cannot be blank");
+              return
+            }
+            if(this.state.mobile.length < 10 ){
+                this.mobileInputRef.focus();
+                this.dropDownAlertRef.alertWithType('error',"Number should contain atleast 10 digits");
+              return
+            }
+            if(this.state.password == ''){
+                this.passwordInputRef.focus();
+                this.dropDownAlertRef.alertWithType('error',"Password cannot be blank");
+              return
+            }
+            if(this.state.password.length < 6 ){
+                this.passwordInputRef.focus();
+                this.dropDownAlertRef.alertWithType('error',"Password should contain atleast 6 letters");
+              return
+            }
 
-        // try {
-        //     this.setState({appLoading: true})
-        //     const { data } = await AuthServices.RegisterUser(myFormData)
-        //     console.log(data);
+            let myFormData = new FormData();
+            myFormData.append("mobile",this.state.mobile)
+            myFormData.append("password", this.state.password)
 
-        //     if( data.status == 0 ){
-        //         this.setState({appLoading: false})
-        //         if(data.existing == 1){
-        //             this.mobileInputRef.focus();
-        //             this.dropDownAlertRef.alertWithType('error', 'Number Already Registered', "try diffrent number");
-        //         }else{
-        //             this.dropDownAlertRef.alertWithType('error', 'Something went wrong ...', "Try Again");
-        //         }
-        //     }
+            try {
+                this.setState({appLoading: true})
+                const { data } = await AuthServices.LoginUser(myFormData)
+                console.log(data);
 
-        //     if( data.status == 1){
-        //         this.setState({appLoading: false})
-        //         await AsyncStorage.setItem('User',JSON.stringify(data.userdata[0])).then( this.props.navigation.replace('OtpProvider') );  
-        //     }
+                // if( data.status == 0 ){
+                //     this.setState({appLoading: false})
+                //     this.dropDownAlertRef.alertWithType('error', 'Invalid Number or Password', "Try Again");
+                // }
 
-        //     this.setState({appLoading: false})
-        //   }
-        //   catch(error){
-        //     console.log(error)
-        //     this.setState({appLoading: false})
-        //     console.log(error.data)
-        //     this.dropDownAlertRef.alertWithType('error', " Server Error : 500 ");
-        //   }
-        // }
-        // else{
-        //     this.dropDownAlertRef.alertWithType('error', 'No Internet Connection', "please check your device connection");
-        // }
+                // if( data.status == 1){
+                //     this.setState({appLoading: false})
+                //     await AsyncStorage.setItem('User',JSON.stringify(data.userdata[0])).then(this.props.navigation.popToTop(),this.props.navigation.replace('MainTabSeller'))  
+                // }
+                // this.setState({appLoading: false})
+            }
+            catch(error){
+                console.log(error)
+                this.setState({appLoading: false})
+                console.log(error.data)
+                this.dropDownAlertRef.alertWithType('error', "Network Error");
+            }
+        }
+        else{
+            this.dropDownAlertRef.alertWithType('error', 'No Internet Connection', "please check your device connection");
+        }
     }
 
     onFacebookClick(){
@@ -184,9 +177,7 @@ export default class Splash extends React.Component {
             <TouchableOpacity onPress={this.onForgotPasswordClick}><Text style={styles.forgotPasswordText}>Forgot Password?</Text></TouchableOpacity>
             </View>
 
-            <TouchableOpacity onPress={()=>{
-                this.onLoginClick();
-            }}  style={styles.loginButtonContainer}>
+            <TouchableOpacity onPress={this.onLoginClick}  style={styles.loginButtonContainer}>
                 <Text style={styles.loginButtonText}>SIGN IN</Text>
             </TouchableOpacity>
 
